@@ -6,7 +6,7 @@ function curtail(arr) {
 }
 // concat()
 function curtail(arr) {
-     var res = arr.concat();
+    var res = arr.concat();
     res.shift();
     return res;
 }
