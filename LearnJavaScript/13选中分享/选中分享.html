@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>    
+        *{
+	        margin: 0;
+		    padding: 0;
+	    }   
+		p{
+		    width: 400px;
+			font-family: KaiTi;
+			//font-size: 1.5em;
+			margin: 100px;
+			text-indent: 2em;
+		}
+		#share{
+		    width: 26px;
+			height: 26px;
+			background-image: url(share.gif);
+			position: absolute;
+			display: none;
+		}
+	</style>
+</head>
+<body>
+    <p id="text">若有人兮山之阿，被薜荔兮带女罗。既含睇兮又宜笑，子慕予兮善窈窕。
+	    乘赤豹兮从文狸，辛夷车兮结桂旗。被石兰兮带杜衡。折芳馨兮遗所思。余处幽篁兮终不见天，
+	    路险难兮独后来。表独立兮山之上，云容容兮而在下。杳冥冥兮羌昼晦，东风飘兮神灵雨。
+		留灵修兮憺忘归，岁既晏兮孰华予。采三秀兮于山间，石磊磊兮葛蔓蔓。怨公子兮怅忘归，君思我兮不得闲。
+		山中人兮芳杜若，饮石泉兮荫松柏。君思我兮然疑作。雷填填兮雨冥冥，猿啾啾兮狖夜鸣。风飒飒兮木萧萧，
+		思公子兮徒离忧。</p>
+	<div id="share"></div>
+    <script>
+	    var words= document.getElementById("text");
+		var weibo= document.getElementById("share");
+		var selectedText;
+		words.onmouseup= function(event){
+		    var e= event || window.event;
+            // 1.1 获取选中的文字
+            if(window.getSelection){    //标准模式 获取选中的文字
+                selectedText = window.getSelection().toString();
+            }else{                      //IE系列
+                selectedText = document.selection.createRange().text;
+            }
+			console.log(selectedText);
+			if(selectedText !== ""){
+			    weibo.style.display= 'block';
+			    weibo.style.left= e.clientX  + 'px';
+			    weibo.style.top= e.clientY  + 'px';
+			}
+		}
+		
+		document.onmousedown= function(event){
+		    var e= event || window.event;
+			var targetId= e.target ? e.target.id : e.srcElement.id;
+			if(targetId !== "share") weibo.style.display= "none";
+			else {
+                window.location.href = 'http://v.t.sina.com.cn/share/share.php?searchPic=false&title=' + selectedText + '&url=https://github.com/xuanzhihua';
+            }
+			//防止拖动时选中内容
+			window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();			
+		}
+		
+	</script>		
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<style>
+	    *{
+		    margin: 0;
+			padding: 0;
+		}
+		body{
+		    background-color: skyblue;		
+		}
+		#content{
+		    margin: 100px auto;
+		    position: relative;
+			width: 750px;
+			height: 400px;
+			overflow: hidden;
+		}
+		#top{
+			top: 0;
+		}
+		#bottom{
+			bottom: 0;
+		}
+		#top, #bottom{
+		    width: 100%;
+			height: 50%;
+			position: absolute;
+			left: 0;
+			cursor: pointer;
+		}
+		#image{
+		    position: absolute;
+			top: 0;
+			left: 0;
+		}
+	</style>
+</head>
+<body>
+    <div id="content">
+	    <img id="image" src="image.jpg">
+		<span id="top"></span>
+		<span id="bottom"></span>
+	</div>
+	<script>
+	    var toTop= document.getElementById("top");
+		var toBottom= document.getElementById("bottom");
+		var img= document.getElementById("image");
+		var box= document.getElementById("content");
+		var timer= null, num= 0;	
+		toTop.onmouseover= function(){     //不能用top,bottom做变量名！！！
+		    clearInterval(timer);
+			timer= setInterval(function(){
+			    num+= 10;
+				if(num<= 0)  {img.style.top= num + 'px'; }
+				else   { clearInterval(timer);}
+			},20);
+		};	
+		toBottom.onmouseover= function(){
+		    clearInterval(timer);
+			timer= setInterval(function(){
+			    num-= 10;
+				if(num>= -2466)  {img.style.top= num + 'px'; }
+				else  { clearInterval(timer); }
+			},20);
+		}
+		box.onmouseout= function(){
+		    clearInterval(timer);
+		}
+			
+	</script>
+</body>
+</html>

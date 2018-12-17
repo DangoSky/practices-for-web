@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<style>
+	    *{
+		    margin: 0;
+			padding: 0;
+		}
+		#box{
+		    width: 350px;
+			height: 350px;
+			margin: 100px;
+			position: relative;
+		}
+		#small{
+		    position: relative;
+			width: 100%;
+			height: 100%;
+			border: 1px solid #ccc;
+		}
+		#small img{
+		    width: 350px;
+			height: 350px;
+		}
+		#mark{
+		    width: 100px;
+			height: 100px;
+			background-color: rgba(255, 255, 0, 0.4);
+			position: absolute;
+			left: 0;
+			top: 0;
+			display: none;
+			cursor: move;
+		}
+		#big{
+		    position: absolute;
+			top: 0;
+			left: 360px;
+			border: 1px solid #ccc;
+			width: 600px;
+			height: 600px;
+			overflow: hidden;
+			display: none;
+		}
+		#big img{    
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		#list{
+			margin: 20px 0 0 40px;	
+		}
+		#list img{
+		    margin-left: 20px;
+		}
+	</style>
+</head>
+<body>
+    <div id="box">
+	    <div id="small">
+		    <img src="pic001.jpg">
+			<span id="mark"></span>
+		</div>
+		<div id="big">
+		    <img src="pic01.jpg">
+		</div>
+		<div id="list">
+		    <img src="pic0001.jpg">
+		    <img src="pic0002.jpg">
+		    <img src="pic0003.jpg">
+		</div>
+	</div>
+	<script>
+	    var box= document.getElementById("box");
+		var small= document.getElementById("small");
+		var big= document.getElementById("big");
+		var mark= small.children[1];
+		var bigImg= big.children[0];
+		var list= document.getElementById("list").children;    //别落了children！！
+		
+		//鼠标进入
+		small.onmouseover= function(){
+		    //显示图片
+		    mark.style.display= 'block';
+		    big.style.display= 'block';
+			small.onmousemove= function(event){
+			    //算出鼠标的坐标
+			    var event= event||window.event;
+			    var x= event.clientX - small.offsetParent.offsetLeft - mark.offsetWidth * 0.5; 
+			    var y= event.clientY - small.offsetParent.offsetTop - mark.offsetHeight * 0.5; 
+			
+			    //边界检测
+			    if(x<0)   x= 0;
+			    else if(x > small.offsetWidth - mark.offsetWidth){
+			        x= small.offsetWidth - mark.offsetWidth;
+			    }
+			    if(y<=0)  y= 0;
+			    else if(y > small.offsetHeight - mark.offsetHeight){
+			        y= small.offsetHeight - mark.offsetHeight;
+			    }
+			    mark.style.left= x + 'px';
+			    mark.style.top= y + 'px';
+				
+				//移动大图片达到放大的效果
+			    bigImg.style.left= -x * (big.offsetWidth / small.offsetWidth) + 'px';
+				bigImg.style.top= -y * (big.offsetHeight / small.offsetHeight) + 'px';		
+		    }
+		}
+		
+		//鼠标离开
+	    small.onmouseout= function(){
+		    mark.style.display= 'none';
+		    big.style.display= 'none';
+		}
+		
+		//遍历列表中的图片
+		for(var i=0; i<list.length; i++){
+		    (function(i){                  //闭包
+			    list[i].onmouseover= function(){
+			        small.children[0].src= "pic00" + (i+1) + ".jpg";
+			        bigImg.src= "pic0" + (i+1) + ".jpg";
+			    }   
+			})(i);
+		}
+		
+	</script>
+</body>
+</html>

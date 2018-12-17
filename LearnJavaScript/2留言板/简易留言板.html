@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        * {
+	        margin: 0;
+            padding: 0;
+	    }
+		#box {
+		    width: 800px;
+			border: 2px solid red;
+			margin: 100px auto;
+		}	
+		#text {
+	        margin-top: 30px;
+      		margin-left: 60px;		
+		}
+		#box-top {
+		    margin-bottom: 30px;
+		}
+		#btn {
+		    display: block;
+			margin-left: 86%;	
+		}
+		#ul{
+		    list-style: none;
+			margin: 0 55px;
+		}
+		#ul li{
+		    border-bottom: 1px dashed #ccc;
+			line-height: 40px;
+		}
+		a{
+		    float: right;
+			text-decoration: none;
+		}
+    </style>
+</head>
+<body>
+    <div  id="box">
+	    <div id="box-top">
+		    <textarea id="text" cols="80" rows="10" autofocus placeholder="留言板"></textarea>
+	        <button id="btn">submit</button>
+		    <ul id="ul">	
+		    </ul>
+	    </div>
+	</div>
+
+<script>
+    window.onload = function() {
+	    $('btn').onclick = function() {
+		    var content = $('text').value;
+			
+			//判断留言板是否为空
+			if (content.length === 0)  {
+				alert("wa");
+				return ;
+			}
+			
+			//显示评论
+			var li = document.createElement("li");
+			li.innerHTML = '<img src="dango.jpg">' + content + '<a href="javascript:;">Delete</a>';  //一定得是单引号, javascript后面一定要有:; 不然一删除评论就关闭页面了
+		    $("ul").insertBefore(li,$("ul").children[0]);
+			
+			//还原留言板
+			$("text").value= '';      //content= '' 不可以直接这样写
+			
+			//删除评论
+			var del = $("ul").getElementsByTagName("a");   //Elements
+			//var img = $("ul").getElementsByTagName("img");
+			for(var i=0; i<del.length; i++){
+			    var cur= del[i];
+				cur.onclick = function() {
+				 //   img.remove();
+				    this.parentNode.remove();
+					
+				}
+			}
+		}	    
+	}
+	
+	
+	
+	  function $(id) {
+        return typeof id === "string" ? document.getElementById(id) : null;
+    }
+</script>
+
+</body>
+</html>

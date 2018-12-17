@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<style>
+	    *{
+		    margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		#slide{
+		    width: 750px;
+			height: 400px;
+			border: 1px solid #ccc;
+			position: relative;
+			margin: 100px auto;
+			padding: 10px;
+		}
+		#top{
+		    position: relative;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+		}
+		#top ul{
+		    width: 3750px;
+			height: 320px;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		#top ul li{
+		    float: left;
+			width: 750px;
+			height: 400px;
+		}
+		#top img{
+		    width: 750px;
+			height: 400px;
+		}
+		#slide ol{
+		    position: absolute;
+			right: 10px;
+			bottom: 10px;
+		}
+		#slide ol li{
+		    width: 15px;
+			height: 15px;
+			background-color: darkgray;
+			margin-right: 3px;
+			border-radius: 50%;
+			display: inline-block;
+			cursor: pointer;
+		}
+		#slide ol li.current{
+		    background-color: orangered;
+		}
+	</style>
+</head>
+<body>
+    <div id="slide">
+	     <div id="top">
+		     <ul id="ul">
+			     <li><img src="1.jpg"></li>
+			     <li><img src="2.jpg"></li>
+			     <li><img src="3.jpg"></li>
+			     <li><img src="4.jpg"></li>
+			 </ul>
+		 </div>
+		 <ol id= "ol">
+		 </ol>	 
+	</div>
+	<script src="myFunction.js"></script>
+	<script>	  
+	    var UL= document.getElementById("ul");   
+		var allLi= document.getElementById("ul").children;
+		
+		//复制第一张图片到最后
+		UL.appendChild(allLi[0].cloneNode(true));
+
+		//动态创建圆形标签
+		var currentIndex= 0, currentLabel= 0;
+		var OL= document.getElementById("ol");	
+		for(var i=0; i<allLi.length - 1; i++){
+		    var li= document.createElement("li");
+			OL.appendChild(li);
+		}
+		OL.children[0].className="current";
+		var olLis= OL.children;
+				
+		//鼠标进入圆形标签
+	    for(var i=0; i<olLis.length; i++){
+		    (function(i){
+			    olLis[i].onmouseover= function(){
+				    for(var j= 0; j<olLis.length; j++){
+					    olLis[j].className= "";
+					}
+					this.className= "current";
+					animation(UL, -(750 * i), 100);
+					currentIndex= currentLabel= j;
+				}		
+			})(i);
+		}	
+		
+		//自动轮播
+		var timer= setInterval(autoplay, 1000);
+		
+		//鼠标进入图片停止计时器
+		var slide= document.getElementById("slide");
+		slide.onmouseover= function(){
+		    clearInterval(timer);
+		}
+		
+		//鼠标离开图片开始计时器
+		slide.onmouseout= function(){
+		    timer= setInterval(autoplay, 1000);
+		}	
+		
+		//轮播
+		function autoplay(){
+		    currentIndex++;
+			if(currentIndex > allLi.length - 1){
+			    currentIndex= 1;
+				UL.style.left= 0 + 'px';
+			}
+			animation(UL, -currentIndex * 750, 100);
+			
+			//实时改变圆形标签
+			currentLabel++;
+			if(currentLabel> olLis.length - 1){
+			    currentLabel= 0;
+			}
+			for(var i=0; i<olLis.length; i++){
+			    olLis[i].className= "";
+			}
+			olLis[currentLabel].className= "current";
+		}
+			
+		//缓动动画
+		function animation(obj, target, speed){
+		    clearInterval(obj.timer);
+			speed=  obj.offsetLeft < target ? speed : -speed;
+			obj.timer= setInterval(function(){
+			    obj.style.left= obj.offsetLeft + speed + 'px';
+				if(Math.abs(target - obj.offsetLeft) < Math.abs(speed) ){
+				    clearInterval(obj.timer);
+				    obj.style.left= target + 'px';
+				}				
+			},100);
+		}
+	</script>
+</body>
+</html>

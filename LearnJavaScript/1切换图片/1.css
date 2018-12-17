@@ -1,0 +1,28 @@
+
+* {
+  padding: 0;
+  margin: 0;
+}
+.lunbo img {
+  width: 500px;
+  height: 300px;
+  position: absolute;
+}
+.lunbo a {
+  position: relative; 
+  font-size:30px;
+}
+#prev {
+  top: 120px;
+  left: 15px;
+}
+#next {
+  top: 120px;
+  left: 430px;
+}
+a {
+  text-decoration: none;
+}
+button {
+  float: left;
+}

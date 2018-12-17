@@ -1,0 +1,69 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<style>
+	    *{
+		    margin: 0;
+			padding: 0;
+		}
+		#box{
+		    background-image: url("date.png");
+			width: 350px;
+			height: 348px;
+			position: relative;
+		}
+
+		#inTop{
+		    position: absolute;
+		    top: 87px;
+			left: 89px;
+			font-size: 3em;
+			padding-top: 30px;
+			padding-bottom: 20px;
+		}
+		#inBottom{
+		    position: absolute;
+			top: 125px;
+			left: 70px;
+			font-size: 6em;
+			//font-weight: bold;
+			//font-style: italic;
+			padding: 50px;
+		}
+		#weekend{
+		    position: absolute;
+			top: 38px;
+			left: 133px;
+			font-size: 1.8em;
+		}
+	</style>
+</head>
+<body>
+    <div id="box">
+	    <div  id="date">
+		    <p id="weekend"></p>
+		    <p id="inTop"></p>
+		    <p id="inBottom"></p>
+		</div>
+	</div>
+	<script>
+	    var Top= document.getElementById("inTop");
+		var Bottom= document.getElementById("inBottom");
+		var TTop= document.getElementById("weekend");
+		
+		var date= new Date();
+		var year= date.getFullYear();
+		var month= date.getMonth()+1;
+		var day= date.getDate();
+		var week= date.getDay();
+		var h= date.getHours();
+		var m= date.getMinutes();
+		var s= date.getSeconds();
+		var arr= ["日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日"];
+		TTop.innerHTML= arr[week];
+		Top.innerHTML= year + "." + month;
+		Bottom.innerHTML= day;
+	</script>
+</body>
+</html>

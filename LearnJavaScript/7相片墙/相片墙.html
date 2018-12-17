@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+	    *{
+		    margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		html, body, ul{
+		    width: 100%;
+			height: 100%;
+		}
+		#ps li{
+		   width: 250px;
+		   height: 360px;
+		   box-shadow: 0 0 10px #ccc;
+		   position: absolute;
+		   transition: all 1s;
+		}
+		#ps{
+		    position: relative;
+		}
+		.current{
+		    left: 50% !important;
+			top: 50%  !important;
+			transform: rotate(0deg) translate(-50%, -50%) scale(1.5, 1.5) !important;
+			z-index: 99;
+		} 
+	</style>
+</head>
+<body>
+     <ul id="ps"></ul>
+	 <script src="underscore.js"></script>
+     <script>
+	    var ps= document.getElementById("ps");
+		
+		//创建li标签和img标签，动态添加图片
+		for(var i=0; i<10; i++){
+		    var li= document.createElement("li");
+			ps.appendChild(li);
+			var image= document.createElement("img");
+			image.src= (i+1) + ".jpg";
+			li.appendChild(image);
+		}
+		
+		//求屏幕的宽高
+		var screenW= document.documentElement.clientWidth-250;
+		var screenH= document.documentElement.clientHeight-360;
+		var allLi= ps.children;
+		for(var j=0; j<allLi.length; j++){
+		    //随机分布图片位置
+			var li= allLi[j];
+		    li.style.left= _.random(0,screenW) + 'px';
+			li.style.top= _.random(0,screenH) + 'px';
+			
+			//随机旋转角度
+			li.style.transform= 'rotate(' + _.random(0,360) + 'deg)';
+			
+		    //监听
+		    li.onclick= function(){
+			    for(var i=0; i<allLi.length; i++){
+				    allLi[i].className= '';
+				}
+				this.className= 'current';
+			}
+		}		
+	 </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<style>
+	    *{
+		    margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		html, body, ul{           //占一个页面
+		    width: 100%;
+			height: 100%;
+		}
+		#ol{
+		    width: 80px;
+			background-color: #ccc;
+			position: fixed;
+			left: 50px;
+			top: 300px;
+			border: 1px solid #fff;
+		}
+		#ol li{
+		    width: 100%;
+			height: 100%;
+			text-align: center;
+			border-bottom: 1px solid #fff;
+			cursor: pointer;
+			color: #fff;
+		}
+		#ol li.current{
+		    background-color: orangered;
+		}
+		#ul li{
+		    width: 100%;
+	        height: 100%;
+		    text-align: center;
+			font-size: 30px;
+			//color: #fff;
+		}
+	</style>
+</head>
+<body>
+    <ol id= "ol">
+	    <li class= "current">1</li>
+	    <li>2</li>
+	    <li>3</li>
+	    <li>4</li>
+	    <li>5</li>
+	</ol> 
+	<ul id= "ul">
+	    <li>第一层</li>
+	    <li>第二层</li>
+	    <li>第三层</li>
+	    <li>第四层</li>
+	    <li>第五层</li>
+	</ul> 
+	<script src="myFunction.js"></script>
+	<script>
+	    var ol= $("ol"), ul= $("ul");
+		var olLis= ol.children, ulLis= ul.children;
+		
+		//动态为每一个ul的li上色
+		var colorArr= ['red', 'green', 'blue', 'purple', 'yellow'];
+		for(var i= 0; i< olLis.length; i++){
+		    ulLis[i].style.backgroundColor= colorArr[i];
+		}
+		
+        //监听ol的点击
+		var isClick= false;
+		for(var i=0; i<olLis.length; i++){
+		    (function(index){
+			    olLis[index].onmousedown= function(){
+				   isClick= true;    //点击ol时跳转页面不执行window.onscroll
+				    for(var j=0; j<olLis.length; j++){
+					    olLis[j].className= "";
+					}
+					this.className= 'current';
+					//滚动到所点击的内容区域
+					animation(document.documentElement, {"scrollTop": index * client().height, "opacity": 0.4}, function(){ 
+					    animation(document.documentElement, {opacity: 1}, function(){
+						    isClick= false;
+					    });
+                    });
+				}
+			})(i);
+		}
+		
+		//监听页面滚动，实时改变ol的指示
+		window.onscroll= function(){
+		    var roll= Math.ceil(scroll().top);
+			if(isClick === false){
+			    for(var i=0; i<olLis.length; i++){	    
+			        if(roll >= ulLis[i].offsetTop){
+				        for(var j=0; j<olLis.length; j++){
+					        olLis[j].className= "";
+					    }
+					    olLis[i].className= "current";  		
+				    }
+			    }		
+			}
+		}	
+
+	</script>
+</body>
+</html>
+

@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset= "utf-8">
+	<style>
+	    *{
+		    margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		a{
+		    text-decoration: none;
+			color: #000;
+		}
+		#content{
+		    width: 900px;
+			height: 40px;
+			border: 1px solid #ccc;
+			margin: 100px auto;
+			overflow: hidden;
+		}
+		#ul{
+		    width: 910px;
+		}
+		#ul li{
+		    width: 100px;
+			height: 40px;
+			border-right: 1px dashed #ccc;
+			text-align: center;
+			line-height: 40px;
+			float: left;
+			background: url(bg.png) no-repeat;
+			position: relative;
+		}
+		span{
+		    width: 100px;
+			height: 40px;
+			background-color: skyblue;
+			position: absolute;
+			top: 40px;
+			left: 0;
+			z-index: -1;
+		}
+	</style>
+</head>
+<body>
+    <div id= "content">
+	    <ul id= "ul">
+		    <li><a href= "">1</a><span></span><audio src= "1.mp3"></audio></li>
+		    <li><a href= "">2</a><span></span><audio src= "2.mp3"></audio></li>
+		    <li><a href= "">3</a><span></span><audio src= "3.mp3"></audio></li>
+		    <li><a href= "">4</a><span></span><audio src= "4.mp3"></audio></li>
+		    <li><a href= "">5</a><span></span><audio src= "5.mp3"></audio></li>
+		    <li><a href= "">6</a><span></span><audio src= "6.mp3"></audio></li>
+		    <li><a href= "">7</a><span></span><audio src= "7.mp3"></audio></li>
+		    <li><a href= "">8</a><span></span><audio src= "8.mp3"></audio></li>
+		    <li><a href= "">9</a><span></span><audio src= "9.mp3"></audio></li>
+		</ul>
+	</div>
+	<script src="myFunction.js"></script>
+	<script>
+	    var ul= $('ul');
+		var ulLis= ul.children;
+		for(var i= 0; i< ulLis.length; i++){
+		    ulLis[i].style.backgroundPosition = '0 ' + i * -40 + 'px';
+			//鼠标进入
+			ulLis[i].onmouseover= function(){
+			    animation(this.children[1], {top: 0});
+				this.children[2].play();
+				this.children[2].currentTime= 0;
+	
+			}
+			
+			//鼠标离开
+			ulLis[i].onmouseout= function(){
+			    animation(this.children[1], {top: 40});
+			}		
+		}
+		
+		//监听鼠标
+		document.onkeydown= function(event){
+		    var e= event || window.event;
+			console.log(e.keyCode);
+			
+			//按下数字键播放
+			var keyCode= e.keyCode - 49;
+			animation(ulLis[keyCode].children[1], {top: 0}, function(){
+			    animation(ulLis[keyCode].children[1], {top: 40});
+			});
+			ulLis[keyCode].children[2].play();
+			ulLis[keyCode].children[2].currentTime= 0;
+		}
+	</script>
+</body>
+</html>

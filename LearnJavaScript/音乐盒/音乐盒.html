@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<style>
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{
+margin:0;
+padding:0;
+}
+body{
+background:url(8.jpg) no-repeat;
+background-size:cover;
+overflow:hidden;
+}
+ul{
+width:200px;
+height:180px;
+position:absolute;
+left:15%;
+top:40%;
+list-style:none;
+transform-style:preserve-3d;
+transform:rotateX(-10deg);
+animation: sport 6s linear 0s infinite normal; 
+
+}
+ul li{
+width:200px;
+height:180px;
+background-color:black;
+position:absolute;
+top:0;
+left:0;
+text-align:center;
+line-height:180px;
+
+}
+ul li img{
+width:200px;
+height:180px;
+border:3px solid skyblue;
+box-size:border-box;
+}
+@keyframes sport{
+from{
+   transform:roteteX(-10deg) rotateY(0deg);
+}
+to{
+   transform:rotateX(-10deg) rotateY(360deg);
+}
+}
+ul:hover img{
+   opacity:0.5;
+}
+ul li:hover img{
+  opacity:1;
+}
+ul li:nth-child(1){
+   transform:rotateY(60deg) translateZ(200px);
+}
+ul li:nth-child(2){ 
+   transform:rotateY(120deg) translateZ(200px);
+}
+ul li:nth-child(3){
+   transform:rotateY(180deg) translateZ(200px);
+}
+ul li:nth-child(4){
+   transform:rotateY(240deg) translateZ(200px);
+}
+ul li:nth-child(5){
+   transform:rotateY(300deg) translateZ(200px);
+}
+ul li:nth-child(6){
+   transform:rotateY(360deg) translateZ(200px);
+}
+
+</style>
+
+
+
+
+
+<ul>
+<li><img src="1.jpg"/></li>
+<li><img src="3.jpg"/></li>
+<li><img src="4.jpg"/></li>
+<li><img src="5.jpg"/></li>
+<li><img src="6.jpg"/></li>
+<li><img src="7.jpg"/></li>
+</ul>
+
+<audio src="audio.mp3"  autoplay="autoplay" controls="controls"></audio>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

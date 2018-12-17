@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset= "utf-8">
+	<style>
+	    *{
+		    margin: 0;
+			padding: 0;
+			border: none;
+			list-style: none;
+		}
+		img{
+		    vertical-align: top;
+		}
+		body{
+		    background-color: black;
+		}
+		#slider{
+		    width: 1200px;
+			height: 460px;
+			margin: 100px auto;
+			position: relative;
+		}
+		#slider li{
+		    position: absolute;
+			top: 0;
+			left: 200px;
+		}
+		#slider li img{
+		    width: 100%;
+			height: 100%;
+		}
+		#slider_ctl{
+		    opacity: 0;
+		}
+		.prev, .next{
+		    width: 76px;
+			height: 112px;
+			position: absolute;
+			top: 50%;
+			z-index: 99;
+			margin-top: -56px;
+			cursor: pointer;
+		}
+		.prev{
+		    background: url(prev.png) no-repeat;
+			left: 0;
+		}
+		.next{
+		    background: url(next.png) no-repeat;
+			right: 0;
+		}
+	</style>
+</head>
+<body>
+    <div id= "slider">
+	    <ul id= "slider_main">
+		    <li><img src= "1.jpg"></li>
+		    <li><img src= "2.jpg"></li>
+		    <li><img src= "3.jpg"></li>
+		    <li><img src= "4.jpg"></li>
+		    <li><img src= "5.jpg"></li>
+		</ul> 
+		<div id= "slider_ctl">
+		    <span class= "prev"></span>
+			<span class= "next"></span>
+		</div>
+	</div>
+	<script src= "myFunction.js"></script>
+	<script>
+	    var slider= $("slider");
+		var slider_main= $("slider_main");
+		var ulLis= slider_main.children;
+		var ctl= $("slider_ctl");
+		
+		//prev和next按钮的显示隐藏
+		slider.onmouseover= function(){
+		    animation(ctl, {"opacity": 1});
+		};
+		slider.onmouseout= function(){
+		    animation(ctl, {"opacity": 0});
+		};
+		
+		//图片定位
+         var json = [
+            {   //  1
+                width:400,
+                top:20,
+                left:50,
+                opacity:0.2,
+                zIndex:2
+            },
+            {  // 2
+                width:600,
+                top:70,
+                left:0,
+                opacity:0.8,
+                zIndex:3
+            },
+            {   // 3
+                width:800,
+                top:100,
+                left:200,
+                opacity:1,
+                zIndex:4
+            },
+            {  // 4
+                width:600,
+                top:70,
+                left:600,
+                opacity:0.8,
+                zIndex:3
+            },
+            {   //5
+                width:400,
+                top:20,
+                left:750,
+                opacity:0.2,
+                zIndex:2
+            }
+        ];
+		for(var i=0; i<json.length; i++){
+		    animation(ulLis[i], json[i]);
+		}
+		
+		//监听点击
+		for(var i=0; i<ctl.children.length; i++){
+		    ctl.children[i].onmousedown= function(){
+			    if(this.className === "prev"){
+				    json.push(json.shift());
+				}
+				else if(this.className === "next"){
+				    json.unshift(json.pop());
+				}
+				//重新布局
+				for(var j=0; j<json.length; j++){
+				    animation(ulLis[j], json[j]);
+				}
+			}
+		}
+	   	
+		/*
+		document.getElementsByClassName("prev").onmousedown= function(){
+		    json.push(json.shift());
+			for(var j=0; j<json.length; j++){
+				    animation(ulLis[j], json[j]);
+			}
+		}
+		document.getElementsByClassName("next").onmousedown= function(){
+		    json.unshift(json.pop());
+			for(var j=0; j<json.length; j++){
+				animation(ulLis[j], json[j]);
+			}
+		}
+		*/
+	</script>
+</body>
+</html>

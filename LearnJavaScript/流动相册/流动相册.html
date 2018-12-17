@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+</head>
+
+<body>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .album {
+      width: 600px;
+      height: 180px;
+      margin: 200px auto;
+      border: 3px solid #ccc;
+      overflow: hidden;
+    }
+
+    ul {
+      width: 1800px;
+      height: 180px;
+      blackground-color: black;
+      list-style: none;
+      animation: move 10s linear 0s infinite;
+    }
+
+    ul li {
+      border: 1px solid #ccc;
+      width: 300px;
+      height: 180px;
+      float: left;
+      box-sizing: border-box;
+    }
+
+    @keyframes move {
+      from {
+        margin-left: 0;
+      }
+
+      to {
+        margin-left: -1200px;
+      }
+    }
+
+    ul:hover {
+      animation-play-state: paused;
+    }
+
+    ul:hover li {
+      opacity: 0.5;
+    }
+
+    ul li:hover {
+      opacity: 1;
+    }
+
+    ul li img {
+      width: 300px;
+      height: 180px;
+    }
+  </style>
+  <div class="album">
+    <ul>
+      <li><img src="1.jpg"></li>
+      <li><img src="2.jpg"></li>
+      <li><img src="3.jpg"></li>
+      <li><img src="4.jpg"></li>
+      <li><img src="1.jpg"></li>
+      <li><img src="2.jpg"></li>
+    </ul>
+  </div>
+</body>
+</html>

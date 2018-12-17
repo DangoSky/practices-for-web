@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<style>
+	    *{
+		    margin: 0;
+			padding: 0;
+		}
+		#img{
+		    position: relative;		
+			margin-left: 20px;
+			margin-top: 20px;
+		}
+	    .box{
+		    width: 220px;
+			height: 360px;
+			margin: 0 15px 15px 0;
+		    background-color: #e8e8e8;
+			//position: absolute;绝对定位不占空间，会使得图片出现覆盖，应该在函数中给每一张图片设置
+		}	
+        .box p:nth-child(3){      //.box p:last-child
+		    color: red;
+		}	
+	</style>
+</head>
+<body> 
+    <div id="btn">
+	    <button>显示一列</button>
+	    <button>显示三列</button>
+	    <button>显示四列</button>
+	    <button>显示五列</button>
+	</div>
+    <div id="img">
+	    <div class="box">
+            <img src="1.jpg" alt="">
+            <p>因为遇见你</p>
+            <p>孙怡邓伦牵手演绎刺绣奇缘</p>
+        </div>
+        <div class="box">
+            <img src="2.jpg" alt="">
+            <p>因为遇见你</p>
+            <p>孙怡邓伦牵手演绎刺绣奇缘</p>
+        </div>
+        <div class="box">
+            <img src="3.jpg" alt="">
+            <p>因为遇见你</p>
+            <p>孙怡邓伦牵手演绎刺绣奇缘</p>
+        </div>
+        <div class="box">
+            <img src="4.jpg" alt="">
+            <p>因为遇见你</p>
+            <p>孙怡邓伦牵手演绎刺绣奇缘</p>
+        </div>
+        <div class="box">
+            <img src="5.jpg" alt="">
+            <p>因为遇见你</p>
+            <p>孙怡邓伦牵手演绎刺绣奇缘</p>
+        </div>
+        <div class="box">
+            <img src="6.jpg" alt="">
+            <p>因为遇见你</p>
+            <p>孙怡邓伦牵手演绎刺绣奇缘</p>
+        </div>
+        <div class="box">
+            <img src="7.jpg" alt="">
+            <p>因为遇见你</p>
+            <p>孙怡邓伦牵手演绎刺绣奇缘</p>
+        </div>
+        <div class="box">
+            <img src="8.jpg" alt="">
+            <p>因为遇见你</p>
+            <p>孙怡邓伦牵手演绎刺绣奇缘</p>
+        </div>
+        <div class="box">
+            <img src="9.jpg" alt="">
+            <p>因为遇见你</p>
+            <p>孙怡邓伦牵手演绎刺绣奇缘</p>
+        </div>
+        <div class="box">
+            <img src="10.jpg" alt="">
+            <p>因为遇见你</p>
+            <p>孙怡邓伦牵手演绎刺绣奇缘</p>
+        </div>
+        <div class="box">
+            <img src="11.jpg" alt="">
+            <p>因为遇见你</p>
+            <p>孙怡邓伦牵手演绎刺绣奇缘</p>
+        </div>
+        <div class="box">
+            <img src="12.jpg" alt="">
+            <p>因为遇见你</p>
+            <p>孙怡邓伦牵手演绎刺绣奇缘</p>
+        </div>
+        <div class="box">
+            <img src="13.jpg" alt="">
+            <p>因为遇见你</p>
+            <p>孙怡邓伦牵手演绎刺绣奇缘</p>
+        </div>
+        <div class="box">
+            <img src="14.jpg" alt="">
+            <p>因为遇见你</p>
+            <p>孙怡邓伦牵手演绎刺绣奇缘</p>
+        </div>
+        <div class="box">
+            <img src="15.jpg" alt="">
+            <p>因为遇见你</p>
+            <p>孙怡邓伦牵手演绎刺绣奇缘</p>
+        </div>
+	</div>
+	
+    <script>
+	     var btn = document.getElementById("btn").children;
+		 var img = document.getElementById("img");
+		 //监听按钮
+		 btn[0].onclick = function () {
+		    change(1);
+		 }
+		 btn[1].onclick = function () {
+		    change(3);
+		 }
+		 btn[2].onclick = function () {
+		    change(4);
+		 }
+		 btn[3].onclick = function () {
+		    change(5);
+		}
+		 function change(allCols){
+		     for(var i=0; i<img.children.length; i++){
+			  //算出图片所在的行列    
+			  var row = parseInt(i/allCols);   //九宫格基础公式
+			  var col = parseInt(i%allCols);
+			  
+			  //根据行列定位
+			  var currentImg = img.children[i];
+			  var marginXY = 15;   //图片间距
+			  currentImg.style.position = "absolute"; 
+			  currentImg.style.left = (220+marginXY)*col + 'px';
+			  currentImg.style.top = (360+marginXY)*row + 'px';
+			 }
+		 } 
+	</script>
+</body>
+</html>
