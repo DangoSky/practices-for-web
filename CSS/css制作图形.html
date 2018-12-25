@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>css图形制作</title>
+  <style>
+    .circle {
+      width: 50px;
+      height: 50px;
+      background: yellow;
+      border-radius: 50%;
+      margin: 50px;
+    }
+    .semicircle {
+      width: 100px;
+      height: 50px;
+      background-color: blue;
+      border-radius: 100px 100px 0 0;
+      margin: 50px;
+    }
+    .fan-shaped {
+      width: 50px;
+      height: 50px;
+      background: pink;
+      border-radius: 50px 0 0 0;
+      margin: 50px;
+    }
+    .oval {
+      width: 100px;
+      height: 50px;
+      background: green;
+      border-radius: 100px / 50px;
+      margin: 50px;
+    }
+    .square {
+      width: 50px;
+      height: 50px;
+      border: 20px solid;
+      border-color: yellow blue pink green;
+      margin: 50px;
+    }
+    .triangle-top {
+      width: 0;
+      height: 0;
+      border: 50px solid;
+      border-color: transparent transparent lightgreen transparent;
+      margin: 50px;
+    }
+    .triangle-topLeft {
+      width: 0;
+      height: 0;
+      border: 50px solid;
+      border-color: red transparent transparent red;
+      margin: 50px;
+    }
+    .threeTransparent {
+      width: 0;
+      height: 0;
+      /* border-color: red yellow transparent blue; */
+      border-top: 50px solid red;
+      border-left: 50px solid blue;
+      border-right: 50px solid yellow;
+      margin: 50px; 
+    }
+    .onlyTopRight {
+      width: 0;
+      height: 0;
+      border-top: 50px solid red;
+      border-right: 50px solid yellow;
+      margin: 50px;
+    }
+    .onlyTopRight1 {
+      width: 50px;
+      height: 50px;
+      border-top: 50px solid red;
+      border-right: 50px solid yellow;
+      margin: 50px;
+    }
+    .parallelogram {
+      width: 100px;
+      height: 50px;
+      background: pink;
+      transform: skew(30deg);
+      margin: 50px;
+    }
+    .sixStar {
+      width: 0;
+      height: 0;
+      border-top: 100px solid red;
+      border-right: 50px solid transparent;
+      border-left: 50px solid transparent;
+      position: relative;
+      margin: 50px;
+    }
+    .sixStar::after {
+      width: 0;
+      height: 0;
+      border-bottom: 100px solid red;
+      border-right: 50px solid transparent;
+      border-left: 50px solid transparent;
+      content: "";
+      position: absolute;
+      left: -50px;
+      top: -135px;
+    }
+    .pac-man {
+      width: 0px;
+      height: 0px;
+      border: 60px solid; 
+      border-color: red transparent red red ; 
+      border-radius: 60px; 
+      margin: 50px;
+    }
+    .talkBubble {
+      width: 120px; 
+       height: 50px;
+      background: red;
+      position: relative;
+      border-radius: 10px;
+      margin: 50px;
+    }
+    .talkBubble::before {
+      content: "";
+      position: absolute;
+      right: 100%;
+      top: 25%;
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-right: 20px solid red;
+      border-bottom: 10px solid transparent;
+    }
+    .yinyang {
+      width: 100px;
+      height: 50px;
+      background: #eee;
+      border-color: red;
+      border-style: solid;
+      border-width: 2px 2px 50px 2px;
+      /* border-bottom: 50px solid red; */
+      border-radius: 100%;
+      position: relative;
+      margin: 50px;
+    }
+    .yinyang::before {
+      content: "";
+      position: absolute;
+      background: #eee;
+      width: 10px;
+      height: 10px;
+      border: 20px solid red;
+      border-radius: 100%;
+      top: 50%;
+      left: 0;
+    }
+    .yinyang::after {
+      content: "";
+      position: absolute;
+      background: red;
+      width: 10px;
+      height: 10px;
+      border: 20px solid #eee;
+      border-radius: 100%;
+      top: 50%;
+      left: 50%;
+    }
+  </style>
+</head>
+<body>
+  <div class="circle"></div>
+  <div class="semicircle"></div>
+  <div class="fan-shaped"></div>
+  <div class="oval"></div>
+  <div class="square"></div>  
+  <div class="triangle-top"></div>
+  <p>矩形每一边框成梯形，因此只要宽高都为0并设置其余三条边框颜色透明则可变化成三角形。</p>
+  <div class="triangle-topLeft"></div>
+  <p>设置不同边框的颜色和透明与否来改变三角形的位置。</p>
+  <div class="threeTransparent"></div>
+  <p>不设置下边框时(不等同于下边框透明)，左右边框会把下半部分切掉(其他边框同理)</p>
+  <div class="onlyTopRight"></div>
+  <div class="onlyTopRight1"></div>
+  <p>如果是两条对边则没有交集，不会出现一小角。</p>
+  <div class="parallelogram"></div>
+  <div class="sixStar"></div>
+  <p>两个反向三角形层叠成六角星。</p>
+  <div class="pac-man"></div>
+  <div class="talkBubble"></div>
+  <div class="yinyang"></div>
+  <p>border的灵活运用</p>
+</body>
+</html>
