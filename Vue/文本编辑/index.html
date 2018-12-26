@@ -1,1 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+		<style>
+			.inputText, .textArea {
+				position: absolute;
+				top: 40%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				
+			}
+			.inputText input {
+				border: 8px solid skyblue;
+				width: 300px;
+				height: 30px;
+				margin-bottom: 200px;
+			}
+			.textArea {
+				border: 1px solid red;
+		
+				color: #ccc;
+				font-size: 20px;
+			}
+			.textArea p{
+			
+				
+			}
+		</style>
 	</head>
+	<body>
+		<div id="main" class="main">
+			<div class="inputText" v-if="show">
+				<input v-model="text">
+			</div>
+			<div class="textArea" @click="show = !show">
+				<p>{{ text }}</p>
+			</div>
+			
+		</div>
+		<script>
+			var vm = new Vue({
+				el: '#main',
+				data: {
+					show: false,
+					text: '点击开始编辑文本'
+				},
+				methods: {
+					
+				}
+			});
+		</script>
+	</body>
+</html>

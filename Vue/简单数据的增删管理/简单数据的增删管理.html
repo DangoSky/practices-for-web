@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+</head>
+<body>
+  <div id="container">
+    <datatable></datatable>
+  </div>
+  <script>
+    Vue.component('datatable', {
+      template: `
+        <div>
+          <fieldset :style="styleObj">
+            <legend>简单数据的增删管理</legend>
+            <div>
+              <span>姓名</span>
+              <input type="text" placeholder="请输入你的姓名" v-model="user.name">{{user.name}}
+            </div>
+            <div>   
+              <span>学号</span>
+              <input type="text" v-model="user.nub">
+            </div>
+            <div>
+              <span>年级：</span>
+              <select v-model="user.num">
+                <option value="大一">大一</option>
+                <option value="大二">大二</option>
+                <option value="大三">大三</option>
+                <option value="大四">大四</option>
+              </select>
+            </div>
+            <div>
+              <span>联系方式</span>
+              <input type="text" v-model="user.tel">
+            </div>
+            <button :click="creatUser()" :style="btnStyle">创建新用户</button>
+          </fieldset>
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  <td>姓名</td>
+                  <td>学号</td>
+                  <td>年级</td>
+                  <td>联系方式</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in arr">
+                  <td>{{ item.name }}</td>
+                  <td>{{ item.nub }}</td>
+                  <td>{{ item.num }}</td>
+                  <td>{{ item.tel }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div> 
+        `,
+      data: function() {
+        return {
+          styleObj: {
+            padding: '20px',
+            lineHeight: '30px' 
+          },
+          btnStyle: {
+            borderRadius: '5px',
+            outline: 'none'
+          },
+          arr: [],
+          user: {name: "", nub: "", num: "", tel: ""},
+        }  
+      },
+      methods: {
+        creatUser() {
+          // this.arr.unshift(this.user);
+        }
+      }
+    });
+    var vm = new Vue({
+      el: '#container'
+    });
+  </script>
+</body>
+</html>
