@@ -5,6 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <style>
+    #container {
+      width: 600px;
+      margin: 100px auto;
+    }
+    table {
+      margin-top: 50px;  
+      width: 600px;
+      text-align: center; 
+      border: 3px solid #eee;
+    }
+    thead {
+      background-color: #ccc;
+    }
+  </style>
   <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
 </head>
 <body>
@@ -19,7 +34,7 @@
             <legend>简单数据的增删管理</legend>
             <div>
               <span>姓名</span>
-              <input type="text" placeholder="请输入你的姓名" v-model="user.name">{{user.name}}
+              <input type="text" placeholder="请输入你的姓名" v-model="user.name">
             </div>
             <div>   
               <span>学号</span>
@@ -27,7 +42,7 @@
             </div>
             <div>
               <span>年级：</span>
-              <select v-model="user.num">
+              <select v-model="user.num">  
                 <option value="大一">大一</option>
                 <option value="大二">大二</option>
                 <option value="大三">大三</option>
@@ -38,7 +53,7 @@
               <span>联系方式</span>
               <input type="text" v-model="user.tel">
             </div>
-            <button :click="creatUser()" :style="btnStyle">创建新用户</button>
+            <button @click="creatUser()" :style="btnStyle">创建新用户</button>
           </fieldset>
           <div>
             <table>
@@ -48,14 +63,16 @@
                   <td>学号</td>
                   <td>年级</td>
                   <td>联系方式</td>
+                  <td>管理</td>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in arr">
-                  <td>{{ item.name }}</td>
-                  <td>{{ item.nub }}</td>
-                  <td>{{ item.num }}</td>
-                  <td>{{ item.tel }}</td>
+                <tr v-for="(val, key, index) in arr">
+                  <td>{{ val.name }}</td>
+                  <td>{{ val.nub }}</td>
+                  <td>{{ val.num }}</td>
+                  <td>{{ val.tel }}</td>
+                  <td><button @click="deleteUser(index)">删除</button></td>
                 </tr>
               </tbody>
             </table>
@@ -70,7 +87,8 @@
           },
           btnStyle: {
             borderRadius: '5px',
-            outline: 'none'
+            outline: 'none',
+            float: 'right',
           },
           arr: [],
           user: {name: "", nub: "", num: "", tel: ""},
@@ -78,7 +96,11 @@
       },
       methods: {
         creatUser() {
-          // this.arr.unshift(this.user);
+          this.arr.unshift(this.user);
+          this.user = {name: "", nub: "", num: "", tel: ""};
+        },
+        deleteUser(index) {
+          this.arr.splice(index, 1);
         }
       }
     });
