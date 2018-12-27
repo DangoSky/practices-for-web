@@ -33,9 +33,16 @@
       height: 640px;
       position: absolute;
       right: 0;
-      top: 0;
+      top: 40px;
       text-align: center;
       /* margin-top: 20px; */
+    }
+    .container {
+      width: 640px;
+      height: 680px;
+      position: absolute;
+      right: 0;
+      top: 0;
     }
     li {
       list-style: none;
@@ -43,9 +50,18 @@
     a {
       text-decoration: none; 
     }
+    .imgName {
+      /* width: 100px; */
+      height: 40px;
+      position: absolute;
+      top: 0;
+      /* border: 1px solid red; */
+    }
     .imgName li {
+      /* width: 100px; */
       float: left;
       margin-left: 10px;
+      line-height: 40px;
     }
   </style>
 </head>
@@ -62,12 +78,13 @@
         <li><router-link to="/xj4">仙剑奇侠传四</router-link></li>
       </ul>
     </div>
-    <div class="imgName">
-    </div>
-    <!-- 路由出口 -->
-    <!-- 路由匹配到的组件将渲染在这里 -->
-    <div class="box">
-      <router-view></router-view>
+    <div class="container">
+      <div class="imgName"></div>
+      <!-- 路由出口 -->
+      <!-- 路由匹配到的组件将渲染在这里 -->
+      <div class="container">
+        <router-view></router-view>
+      </div>
     </div>
   </div>
   <template id="xj1"> 
