@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0; 
+    }
+    #app {
+      width: 800px;
+      height: 640px;      
+      margin: 50px auto;
+      position: relative;
+      /* border: 1px solid lightgreen; */
+      background-color: #e8e8e8;
+      /* padding: 10px;   */
+    }
+    ul {
+      width: 160px;
+      height: 640px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      text-align: center; 
+      line-height: 25px;  
+      margin-top: 20px;
+
+    }
+    .box {
+      width: 640px;
+      height: 640px;
+      position: absolute;
+      right: 0;
+      top: 0;
+      text-align: center;
+      margin-top: 20px;
+    }
+    li {
+      list-style: none;
+    }
+    a {
+      text-decoration: none; 
+    }
+
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- 使用 router-link 组件来导航. -->
+    <!-- 通过传入 `to` 属性指定链接. -->
+    <!-- <router-link> 默认会被渲染成一个 `<a>` 标签 -->
+    <div>
+      <ul>
+        <li><router-link to="/xj1">仙剑奇侠传一</router-link></li>
+        <li><router-link to="/xj2">仙剑奇侠传二</router-link></li>
+        <li><router-link to="/xj3">仙剑奇侠传三</router-link></li>
+        <li><router-link to="/xj4">仙剑奇侠传四</router-link></li>
+      </ul>
+    </div>
+    <!-- 路由出口 -->
+    <!-- 路由匹配到的组件将渲染在这里 -->
+    <div class="box">
+      <router-view></router-view>
+    </div>
+  </div>
+  <template id="xj1"> 
+      <div>
+        <h1>仙剑奇侠传1</h1>
+      </div>
+    </template>
+    <template id="xj2"> 
+      <div>
+        <h1>仙剑奇侠传2</h1>
+      </div>
+    </template>
+    <template id="xj3"> 
+      <div>
+        <h1>仙剑奇侠传3</h1>
+      </div>
+    </template>
+    <template id="xj4"> 
+      <div>
+        <h1>仙剑奇侠传4</h1>
+      </div>
+    </template>
+  <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+  <script src="https://unpkg.com/vue-router@3.0.2/dist/vue-router.js"></script>
+  <script>
+    // 创建组件
+    var xj1 = Vue.extend({
+      template: '#xj1'
+    });
+    var xj2 = Vue.extend({
+      template: '#xj2'
+    });
+    var xj3 = Vue.extend({
+      template: '#xj3'
+    });
+    var xj4 = Vue.extend({
+      template: '#xj4'
+    });
+    // 1.定义路由的组件
+    // var xj1 = {template: '#xj1'};
+    // var xj2 = {template: '#xj2'};
+    // var xj3 = {template: '#xj3'};
+    // var xj4 = {template: '#xj4'};
+    // 2.定义路由
+    var routes = [
+      {path: '/xj1', component: xj1},
+      {path: '/xj2', component: xj2},
+      {path: '/xj3', component: xj3},
+      {path: '/xj4', component: xj4}
+    ];
+    // 3.创建路由实例
+    var router = new VueRouter({
+      routes     // (缩写) 相当于 routes: routes
+    })
+    // 4.创建和挂载根实例
+    var app = new Vue({
+      router
+    }).$mount('#app')
+  </script>
+</body>
+</html>
