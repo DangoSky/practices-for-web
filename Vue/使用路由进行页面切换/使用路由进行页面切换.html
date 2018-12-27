@@ -12,20 +12,21 @@
     }
     #app {
       width: 800px;
-      height: 640px;      
-      margin: 50px auto;
+      height: 680px;      
+      margin: 30px auto;
       position: relative;
       background-color: #e8e8e8;
     }
-    ul {
+    .nav {
       width: 160px;
-      height: 640px;
+      height: 680px;
       position: absolute;
       top: 0;
       left: 0;
       text-align: center; 
       line-height: 30px;  
-      margin-top: 20px;
+      /* margin-top: 20px; */
+      background-color: #ccc;
     }
     .box {
       width: 640px;
@@ -34,13 +35,17 @@
       right: 0;
       top: 0;
       text-align: center;
-      margin-top: 20px;
+      /* margin-top: 20px; */
     }
     li {
       list-style: none;
     }
     a {
       text-decoration: none; 
+    }
+    .imgName li {
+      float: left;
+      margin-left: 10px;
     }
   </style>
 </head>
@@ -50,12 +55,14 @@
     <!-- 通过传入 `to` 属性指定链接. -->
     <!-- <router-link> 默认会被渲染成一个 `<a>` 标签 -->
     <div>
-      <ul>
+      <ul class="nav">
         <li><router-link to="/xj1">仙剑奇侠传一</router-link></li>
         <li><router-link to="/xj2">仙剑奇侠传二</router-link></li>
         <li><router-link to="/xj3">仙剑奇侠传三</router-link></li>
         <li><router-link to="/xj4">仙剑奇侠传四</router-link></li>
       </ul>
+    </div>
+    <div class="imgName">
     </div>
     <!-- 路由出口 -->
     <!-- 路由匹配到的组件将渲染在这里 -->
@@ -64,25 +71,37 @@
     </div>
   </div>
   <template id="xj1"> 
-      <div>
-        <h1>仙剑奇侠传1</h1>
+    <div>
+      <ul class="imgName">
+        <li><router-link to="zhaolinger">赵灵儿</router-link></li>
+        <li><router-link to="linyueru">林月如</router-link></li>
+      </ul>
+      <div class="box">
+        <router-view></router-view>
       </div>
-    </template>
-    <template id="xj2"> 
-      <div>
-        <h1>仙剑奇侠传2</h1>
-      </div>
-    </template>
-    <template id="xj3"> 
-      <div>
-        <h1>仙剑奇侠传3</h1>
-      </div>
-    </template>
-    <template id="xj4"> 
-      <div>
-        <h1>仙剑奇侠传4</h1>
-      </div>
-    </template>
+    </div>
+  </template>
+  <template id="xj2"> 
+    <div>
+      <h1>仙剑奇侠传2</h1>
+    </div>
+  </template>
+  <template id="xj3"> 
+    <div>
+      <h1>仙剑奇侠传3</h1>
+    </div>
+  </template>
+  <template id="xj4"> 
+    <div>
+      <h1>仙剑奇侠传4</h1>
+    </div>
+  </template>
+  <template id="zhaolinger">
+    <img src="images/赵灵儿.jpg" alt="">
+  </template>
+  <template id="linyueru">
+    <img src="images/林月如.jpg" alt="">
+  </template>
   <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
   <script src="https://unpkg.com/vue-router@3.0.2/dist/vue-router.js"></script>
   <script>
@@ -104,9 +123,19 @@
     const xj2 = {template: '#xj2'};
     const xj3 = {template: '#xj3'};
     const xj4 = {template: '#xj4'};
+    const zhaolinger = {template: '#zhaolinger'};
+    const linyueru = {template: '#linyueru'};
     // 2.定义路由
     const routes = [
-      {path: '/xj1', component: xj1},
+      {
+        path: '/xj1',
+        component: xj1,
+        children: [
+          {path: 'zhaolinger', component: zhaolinger},
+          {path: 'linyueru', component: linyueru},
+          {path: '/', redirect: 'zhaolinger'}
+        ]  
+      },
       {path: '/xj2', component: xj2},
       {path: '/xj3', component: xj3},
       {path: '/xj4', component: xj4},
