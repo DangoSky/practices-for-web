@@ -76,6 +76,9 @@
         <li><router-link to="/xj2">仙剑奇侠传二</router-link></li>
         <li><router-link to="/xj3">仙剑奇侠传三</router-link></li>
         <li><router-link to="/xj4">仙剑奇侠传四</router-link></li>
+        <li><router-link to="/xj5">仙剑奇侠传五</router-link></li>
+        <li><router-link to="/xj5Front">仙剑奇侠传五前传</router-link></li>
+        <li><router-link to="/xj6">仙剑奇侠传六</router-link></li>
       </ul>
     </div>
     <div class="container">
@@ -99,18 +102,59 @@
     </div>
   </template>
   <template id="xj2"> 
-    <div>
-      <h1>仙剑奇侠传2</h1>
-    </div>
   </template>
   <template id="xj3"> 
     <div>
-      <h1>仙剑奇侠传3</h1>
+      <ul class="imgName">
+        <li><router-link to="tangxuejian">唐雪见</router-link></li>
+        <li><router-link to="longkui">龙葵</router-link></li>
+      </ul>
+      <div class="box">
+        <router-view></router-view>
+      </div>
     </div>
   </template>
   <template id="xj4"> 
     <div>
-      <h1>仙剑奇侠传4</h1>
+      <ul class="imgName">
+        <li><router-link to="hanlingsha">韩菱纱</router-link></li>
+        <li><router-link to="liumengli">柳梦璃</router-link></li>
+      </ul>
+      <div class="box">
+        <router-view></router-view>
+      </div>
+    </div>
+  </template>
+  <template id="xj5"> 
+    <div>
+      <ul class="imgName">
+        <li><router-link to="xiaoman">小蛮</router-link></li>
+      </ul>
+      <div class="box">
+        <router-view></router-view>
+      </div>
+    </div>
+  </template>
+  <template id="xj5Front"> 
+    <div>
+      <ul class="imgName">
+        <li><router-link to="xia">暇</router-link></li>
+        <li><router-link to="muchanglan">暮菖兰</router-link></li>
+        <li><router-link to="jieluo">结萝</router-link></li>
+      </ul>
+      <div class="box">
+        <router-view></router-view>
+      </div>
+    </div>
+  </template>
+  <template id="xj6"> 
+    <div>
+      <ul class="imgName">
+        <li><router-link to="yueqi">越祁</router-link></li>
+      </ul>
+      <div class="box">
+        <router-view></router-view>
+      </div>
     </div>
   </template>
   <template id="zhaolinger">
@@ -118,6 +162,33 @@
   </template>
   <template id="linyueru">
     <img src="images/林月如.jpg" alt="">
+  </template>
+  <template id="longkui">
+    <img src="images/龙葵.jpg" alt="">
+  </template>
+  <template id="tangxuejian">
+    <img src="images/唐雪见.jpg" alt="">
+  </template>
+  <template id="hanlingsha">
+    <img src="images/韩菱纱.jpg" alt="">
+  </template>
+  <template id="liumengli">
+    <img src="images/柳梦璃.jpg" alt="">
+  </template>
+  <template id="xiaoman">
+    <img src="images/小蛮.jpg" alt="">
+  </template>
+  <template id="jieluo">
+    <img src="images/结萝.jpg" alt="">
+  </template>
+  <template id="xia">
+    <img src="images/暇.jpg" alt="">
+  </template>
+  <template id="muchanglan">
+    <img src="images/暮菖兰.jpg" alt="">
+  </template>
+  <template id="yueqi">
+    <img src="images/越祁.jpg" alt="">
   </template>
   <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
   <script src="https://unpkg.com/vue-router@3.0.2/dist/vue-router.js"></script>
@@ -140,8 +211,20 @@
     const xj2 = {template: '#xj2'};
     const xj3 = {template: '#xj3'};
     const xj4 = {template: '#xj4'};
+    const xj5 = {template: '#xj5'};
+    const xj5Front = {template: '#xj5Front'};
+    const xj6 = {template: '#xj6'};
     const zhaolinger = {template: '#zhaolinger'};
     const linyueru = {template: '#linyueru'};
+    const longkui = {template: '#longkui'};
+    const tangxuejian = {template: '#tangxuejian'};
+    const liumengli = {template: '#liumengli'};
+    const hanlingsha = {template: '#hanlingsha'};
+    const xiaoman = {template: '#xiaoman'};
+    const jieluo = {template: '#jieluo'};
+    const xia = {template: '#xia'};
+    const muchanglan = {template: '#muchanglan'};
+    const yueqi = {template: '#yueqi'};
     // 2.定义路由
     const routes = [
       {
@@ -153,10 +236,54 @@
           {path: '/', redirect: 'zhaolinger'}
         ]  
       },
-      {path: '/xj2', component: xj2},
-      {path: '/xj3', component: xj3},
-      {path: '/xj4', component: xj4},
-      {path: '/', redirect: '/xj4'}
+      {
+        path: '/xj2', component: xj2
+      },
+      {
+        path: '/xj3',
+        component: xj3,
+        children: [
+          {path: 'tangxuejian', component: tangxuejian},
+          {path: 'longkui', component: longkui},
+          {path: '/', redirect: 'tangxuejian'}
+        ]
+      },
+      {
+        path: '/xj4',
+        component: xj4,
+        children: [
+          {path: 'hanlingsha', component: hanlingsha},
+          {path: 'liumengli', component: liumengli},
+          {path: '/', redirect: 'hanlingsha'}
+        ]  
+      },
+      {
+        path: '/xj5',
+        component: xj5,
+        children: [
+          {path: 'xiaoman', component: xiaoman},
+          {path: '/', redirect: 'xiaoman'}
+        ]
+      },
+      {
+        path: '/xj5Front',
+        component: xj5Front,
+        children: [
+          {path: 'xia', component: xia},
+          {path: 'muchanglan', component: muchanglan},
+          {path: 'jieluo', component: jieluo},
+          {path: '/', redirect: 'xia'}
+        ]  
+      },
+      {
+        path: '/xj6',
+        component: xj6,
+        children: [
+          {path: 'yueqi', component: yueqi},
+          {path: '/', redirect: 'yueqi'}
+        ]
+      },
+      {path: '/', redirect: 'xj1'}
     ];
     // 3.创建路由实例
     const router = new VueRouter({
