@@ -15,9 +15,7 @@
       height: 640px;      
       margin: 50px auto;
       position: relative;
-      /* border: 1px solid lightgreen; */
       background-color: #e8e8e8;
-      /* padding: 10px;   */
     }
     ul {
       width: 160px;
@@ -26,9 +24,8 @@
       top: 0;
       left: 0;
       text-align: center; 
-      line-height: 25px;  
+      line-height: 30px;  
       margin-top: 20px;
-
     }
     .box {
       width: 640px;
@@ -45,7 +42,6 @@
     a {
       text-decoration: none; 
     }
-
   </style>
 </head>
 <body>
@@ -90,37 +86,38 @@
   <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
   <script src="https://unpkg.com/vue-router@3.0.2/dist/vue-router.js"></script>
   <script>
-    // 创建组件
-    var xj1 = Vue.extend({
-      template: '#xj1'
-    });
-    var xj2 = Vue.extend({
-      template: '#xj2'
-    });
-    var xj3 = Vue.extend({
-      template: '#xj3'
-    });
-    var xj4 = Vue.extend({
-      template: '#xj4'
-    });
+    // 1.创建路由的组件
+    // var xj1 = Vue.extend({
+    //   template: '#xj1'
+    // });
+    // var xj2 = Vue.extend({
+    //   template: '#xj2'
+    // });
+    // var xj3 = Vue.extend({
+    //   template: '#xj3'
+    // });
+    // var xj4 = Vue.extend({
+    //   template: '#xj4'
+    // });
     // 1.定义路由的组件
-    // var xj1 = {template: '#xj1'};
-    // var xj2 = {template: '#xj2'};
-    // var xj3 = {template: '#xj3'};
-    // var xj4 = {template: '#xj4'};
+    const xj1 = {template: '#xj1'};
+    const xj2 = {template: '#xj2'};
+    const xj3 = {template: '#xj3'};
+    const xj4 = {template: '#xj4'};
     // 2.定义路由
-    var routes = [
+    const routes = [
       {path: '/xj1', component: xj1},
       {path: '/xj2', component: xj2},
       {path: '/xj3', component: xj3},
-      {path: '/xj4', component: xj4}
+      {path: '/xj4', component: xj4},
+      {path: '/', redirect: '/xj4'}
     ];
     // 3.创建路由实例
-    var router = new VueRouter({
+    const router = new VueRouter({
       routes     // (缩写) 相当于 routes: routes
     })
     // 4.创建和挂载根实例
-    var app = new Vue({
+    const app = new Vue({
       router
     }).$mount('#app')
   </script>
