@@ -1,0 +1,101 @@
+@containerW: 400px;
+@containerH: 500px;
+@login: @containerW / 4;
+
+* {
+  margin: 0;
+  padding: 0;
+}
+html {
+  width: 100%;
+  height: 100%;
+}
+body {
+  width: 100%;
+  height: 100%;
+  background: #fff url(images/bg.png) 50% 50% no-repeat;
+  background-size: cover;
+}
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #fff;
+  width: @containerW;
+  height: @containerH; 
+  border-radius: 20px;
+}
+.portrait {
+  width: @login;
+  height: @login;
+  margin: @containerH / 10  @containerW * 3 / 8;
+}
+.form-item {
+  position: relative;
+  width: @containerW * 4 / 5;
+  height: @containerH / 11;
+  margin: 0 auto;
+  padding: 15px;
+  text-align: center;
+  input, button {
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    background-color: transparent;
+    outline: none;   
+    border: 1px solid white;
+    box-sizing: border-box;    
+    font-size: 20px;
+    color: white;
+  }
+  .user {
+    background: url(images/emil.png) 16px 10px no-repeat;
+    padding-left: 50px;
+  }
+  .password {
+    background: url(images/password.png) 20px 8px no-repeat;
+    padding-left: 50px;
+  }
+  .submit {
+    background-color: white;
+    cursor: pointer;
+    color: black;
+  }
+}
+.footer {
+  position: relative;
+  top: 10px;
+  a {
+    text-decoration: none;
+    color: white;
+  }
+  .sign-up {
+    position: absolute;
+    left: 20px;
+  }
+  .forget-password {
+    position: absolute;
+    right: 20px;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  
+  .container {
+    // position: static; 
+    top: 40%;
+    border: 0;
+    // width: auto;
+    // height: auto;
+  }
+  .form-item {
+    width: auto;
+    
+
+    input, button {
+      width: 100%;
+    }
+  }
+
+}
