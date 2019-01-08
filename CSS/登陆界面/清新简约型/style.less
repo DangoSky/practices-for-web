@@ -1,5 +1,5 @@
 @containerW: 400px;
-@containerH: 500px;
+@containerH: 540px;
 @login: @containerW / 4;
 
 * {
@@ -29,7 +29,7 @@ body {
 .portrait {
   width: @login;
   height: @login;
-  margin: @containerH / 10  @containerW * 3 / 8;
+  margin: 50px auto;
 }
 .form-item {
   position: relative;
@@ -65,6 +65,7 @@ body {
 }
 .footer {
   position: relative;
+  width: 100%;
   top: 10px;
   a {
     text-decoration: none;
@@ -79,23 +80,14 @@ body {
     right: 20px;
   }
 }
-
-@media screen and (max-width: 540px) {
-  
+@media screen and (max-width: 500px) {
   .container {
-    // position: static; 
-    top: 40%;
     border: 0;
-    // width: auto;
-    // height: auto;
+    width: 100vw;
+    height: 100vh;
   }
   .form-item {
     width: auto;
-    
-
-    input, button {
-      width: 100%;
-    }
+    // width: 90%;   
   }
-
 }
