@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      margin-top: 20%;
+      background-color: #eeeeee;
+      display: flex;
+      justify-content: center;
+      align-items: center; 
+    }
+    ul {
+      list-style: none;
+    }
+    li {
+      float: left;
+      padding: 15px 20px;
+      position: relative;
+      transition: 0.2s all linear;
+      cursor: pointer;
+    }
+    /* @keyframes underline {
+      0% {
+        width: 0%;
+      }
+      100% {
+        width: 100%;
+      }
+    } */
+    li::before {
+      content: "";
+      width: 0;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 100%;          
+      /* 未做动画前的起始位置 */
+      border-bottom: 1px solid black;
+      transition: 0.2s all linear;
+    }     
+    li:hover::before {
+      width: 100%;
+      left: 0;
+      /* 做完动画后的起始位置 */
+      top: 0;
+      transition-delay: 0.2s;
+      /* animation: underline 1s; */
+    } 
+    li:hover ~ li::before {
+      left: 0;
+      /* 不改变当前hover的li下划线的移动方式，而改变下一个的 */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <ul class="box">
+      <li>前端三剑客之一：HTML</li>
+      <li>前端三剑客之二：CSS</li>
+      <li>前端三剑客之三：Javascript</li>
+      <li>一把梭：jQuery</li>
+      <li>响应式框架：Bootstrap</li>
+    </ul>
+  </div>
+</body>
+</html>
