@@ -49,28 +49,14 @@
       </li>
     </ul>
   </div>
-  <!-- <script src="store.js"></script> -->
   <script>
-     function getdata() {
-          return [1,2,3];
-    };
-    // import store from './store.js'
-    // (function() {
-    //   console.log(localStorage.length);
-    //   if(localStorage.length > 0) {
-    //     for(let i=0; i<localStorage.length; i++) {
-    //       console.log(localStorage.key(i));
-    //       console.log(localStorage.getItem(localStorage.key(i)));
-    //     } 
-    //   }
-    // }());
     var vm = new Vue({
       el: '#app',
       data: {
         title: 'toDoList',
         newItem: '',
-        // item: getdata()
-        item: []
+        item: [],
+        itemSum: 0
       },
       methods: {
         addItem() {
@@ -78,27 +64,20 @@
             text: this.newItem,
             isFinished: false
           }); 
+          this.itemSum++;
           localStorage.setItem(this.newItem, false);
-          // localStorage.setItem(this.title, JSON.stringify(this.item));
           this.newItem = ' ';
-          console.log(this.item);
-        },
-        loadItem: (function() {
-          // console.log(this.item);
-            // this.item = window.localStorage.getItem(this.title);
-            for(let i=0; i<localStorage.length; i++){
-              // this.item.push({
-              //   text: localStorage.key(i),
-              //   isFinished: localStorage.getItem(localStorage.key(i))
-              // })
-              // console.log(localStorage.key(i));
-              // console.log(localStorage.getItem(localStorage.key(i)));
-              
-            }
-            // this.item = JSON.parse(window.localStorage.getItem(this.title));
-                   
-        }())
+        }
       },
+      mounted(){
+      //  localStorage.clear();
+        for(let i=0; i<localStorage.length; i++){
+          this.item.push({
+            text: localStorage.key(i),
+            isFinished: localStorage.getItem(localStorage.key(i))
+          })
+        }
+      }
       // watch: {
       //   item: {
       //     handler: function(items) {
