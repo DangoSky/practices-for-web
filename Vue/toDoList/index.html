@@ -41,7 +41,7 @@
 <body>
   <div id="app">
     <h2>{{ title }}</h2>
-    <input type="text" v-model="newItem" @keyup.enter="addItem">
+    <input type="text" v-model="newItem" @keyup.enter="addItem" placeholder="向前有路，未来可期">
     <ul>
       <li class="itemStyle" v-for="items in item">
         <input type="checkbox" v-model="items.isFinished">
@@ -50,6 +50,15 @@
     </ul>
   </div>
   <script>
+    (function() {
+      console.log(localStorage.length);
+      if(localStorage.length > 0) {
+        for(let i=0; i<localStorage.length; i++) {
+          console.log(localStorage.key(i));
+          console.log(localStorage.getItem(localStorage.key(i)));
+        } 
+      }
+    }());
     var vm = new Vue({
       el: '#app',
       data: {
@@ -72,6 +81,7 @@
             text: this.newItem,
             isFinished: false
           }); 
+          localStorage.setItem(this.newItem, false);
           this.newItem = ' ';
         }
       }
