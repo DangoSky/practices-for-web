@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    h2 {
+      text-align: center;
+    }
+    li {
+      list-style: none;
+    }
+    #app {
+      position: absolute;
+      left: 50%;
+      top: 50px;
+      transform: translate(-50%, 0);       
+    }
+    .itemStyle {
+      padding: 5px;
+    }
+  </style>
+  <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h2>{{ title }}</h2>
+    <ul class="itemStyle" v-for="items in item">
+      <li>{{ items }}</li>
+    </ul>
+  </div>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        title: 'toDoList',
+        item: [
+          1,2,3,4,'diljfgoewgijdoigjwoejsagjffeowjhtgoeg'
+        ],
+       
+      }
+    });
+  </script>
+</body>
+</html>
