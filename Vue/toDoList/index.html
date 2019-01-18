@@ -13,6 +13,13 @@
     h2 {
       text-align: center;
     }
+    input[type='text'] {
+      margin-top: 10px;
+      width: 500px;
+      height: 30px;
+      border-radius: 5px;
+      outline: none;
+    }
     li {
       list-style: none;
     }
@@ -25,14 +32,21 @@
     .itemStyle {
       padding: 5px;
     }
+    .finishItem {
+      text-decoration: line-through;
+    }
   </style>
   <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
 </head>
 <body>
   <div id="app">
     <h2>{{ title }}</h2>
-    <ul class="itemStyle" v-for="items in item">
-      <li>{{ items }}</li>
+    <input type="text" v-model="newItem" @keyup.enter="addItem">
+    <ul>
+      <li class="itemStyle" v-for="items in item">
+        <input type="checkbox" v-model="items.isFinished">
+        <span :class="{finishItem: items.isFinished}">{{ items.text}}</span>
+      </li>
     </ul>
   </div>
   <script>
@@ -40,10 +54,26 @@
       el: '#app',
       data: {
         title: 'toDoList',
+        newItem: '',
         item: [
-          1,2,3,4,'diljfgoewgijdoigjwoejsagjffeowjhtgoeg'
+          {
+            text: '1',
+            isFinished: false
+          },
+          {
+            text: '2',
+            isFinished: false
+          }
         ],
-       
+      },
+      methods: {
+        addItem() {
+          this.item.push({
+            text: this.newItem,
+            isFinished: false
+          }); 
+          this.newItem = ' ';
+        }
       }
     });
   </script>
