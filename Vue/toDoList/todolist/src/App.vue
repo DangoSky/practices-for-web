@@ -1,23 +1,25 @@
 <template>
   <div id="app">
-    <h2>{{ title }}</h2>
+    <h4>{{ title }}</h4>
+    <h2>{{ time }}</h2>
     <input type="text" v-model="newItem" @keyup.enter="addItem" placeholder="向前有路，未来可期">
     <ul>
-      <li v-for="items in item">
+      <li v-for="items in item" :key="items.text">
         <input type="checkbox" v-model="items.isFinished">
         <span :class="{finishItem: items.isFinished}">{{ items.text }}</span>
       </li>
     </ul>
   </div>
 </template>
-
+  
 <script>
 import store from "./store";
 export default {
   name: "app",
   data() {
     return {
-      title: "toDoList",
+      title: "明明什么都还没有做就已经",
+      time: " ",
       newItem: "",
       item: store.fetch()
     };
@@ -29,6 +31,19 @@ export default {
         isFinished: false
       });
       this.newItem = " ";
+    },
+    timer() {
+      let date = new Date();
+      let hour = this.formatting(date.getHours()),
+        minutes = this.formatting(date.getMinutes()),
+        seconds = this.formatting(date.getSeconds());
+      this.time = `${hour}:${minutes}:${seconds}`;
+    },
+    formatting(time) {
+      if (time < 10) {
+        return "0" + time;
+      }
+      else return time;
     }
   },
   watch: {
@@ -38,25 +53,22 @@ export default {
       },
       deep: true
     }
+  },
+  created() {
+    // localStorage.clear();
+    setInterval(this.timer, 1000);
   }
 };
 </script>
 
 <style>
-/* #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-} */
 * {
   margin: 0;
   padding: 0;
 }
 h2 {
   text-align: center;
+  color: red;
 }
 input[type="text"] {
   margin-top: 10px;
@@ -64,6 +76,7 @@ input[type="text"] {
   height: 30px;
   border-radius: 5px;
   outline: none;
+  margin-bottom: 15px;
 }
 li {
   list-style: none;
