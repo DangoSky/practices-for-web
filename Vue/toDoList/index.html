@@ -44,9 +44,10 @@
     <input type="text" v-model="newItem" @keyup.enter="addItem" placeholder="向前有路，未来可期">
     <ul>
       <li class="itemStyle" v-for="items in item">
-        <input type="checkbox" v-model="items.isFinished">
-        <span :class="{finishItem: items.isFinished}">{{ items.text}}</span>
+        <!-- <input type="checkbox" v-model="items.isFinished"> -->
+        <span :class="{finishItem: items.isFinished}">{{ items.text }}  {{ items.isFinished }}</span>
       </li>
+      <!-- items.isFinished值为false,但刷新页面总是启用finishItem类 -->
     </ul>
   </div>
   <script>
@@ -55,8 +56,7 @@
       data: {
         title: 'toDoList',
         newItem: '',
-        item: [],
-        itemSum: 0
+        item: []
       },
       methods: {
         addItem() {
@@ -64,28 +64,32 @@
             text: this.newItem,
             isFinished: false
           }); 
-          this.itemSum++;
           localStorage.setItem(this.newItem, false);
           this.newItem = ' ';
-        }
+        },
+        // update() {
+        //   for(let i=0; i<this.item; i++) {
+        //     localStorage.setItem(this.item.text, this.item.isFinished);
+        //   } 
+        // }
       },
-      mounted(){
+      mounted() {
       //  localStorage.clear();
-        for(let i=0; i<localStorage.length; i++){
+        for(let i=0; i<localStorage.length; i++) {
           this.item.push({
             text: localStorage.key(i),
             isFinished: localStorage.getItem(localStorage.key(i))
-          })
+          });
         }
+        for(let i=0; i<this.item.length; i++) {
+          console.log(this.item[i].text + " " + this.item[i].isFinished);
+        }
+      },
+      watch: {
+        // items.isFinished: {
+          // 不知道怎么实现对checkbox变化的监听
+        // }
       }
-      // watch: {
-      //   item: {
-      //     handler: function(items) {
-      //       window.localStorage.setItem("STORAGE_KEY", JSON.stringify(items));
-      //     },
-      //     deep: true
-      //   }
-      // }
     });
   </script>
 </body>
