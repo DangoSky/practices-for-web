@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>动态组件</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    #app {
+      position: absolute;
+      left: 50%;
+      top:  200px;
+      transform: translate(-50%);
+    }
+    .tab {
+      padding: 5px 10px;
+      border-top-left-radius: 3px;
+      background: #f0f0f0;
+      cursor: pointer;
+      outline: none;
+    }
+    .nav {
+      position: relative;
+      padding: 5px 20px;
+      border: 1px solid #cccccc;
+      width: 500px;
+      height: 200px;
+    }
+    .nav-title {
+      list-style: none;
+      cursor: pointer;
+      width: 115px;
+      height: 100%;
+      border-right: 1px solid #cccccc;
+    }
+    .nav-content {
+      position: absolute;
+      left: 150px;
+      top: 0;
+      padding: 20px;
+    }
+    .active {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <button v-for="tab in tabs" @click="currentTab = tab" :class="['tab']">
+      {{ tab }}
+    </button>
+    <!-- 记录切换组件之前的组件选中状态 -->
+    <keep-alive>
+      <component :is="currentTab" class="nav"></component>
+    </keep-alive>
+  </div>
+  <script src="https://cdn.bootcss.com/vue/2.5.22/vue.js"></script>
+  <script>
+    Vue.component('tab-one', {
+      data() {
+        return {
+          arrs: [
+            {
+              id: 1,
+              title: 'nav-one',
+              content: 'This is the nav-one.'
+            },
+            {
+              id: 2,
+              title: 'nav-two',
+              content: 'This is the nav-two.'
+            },
+            {
+              id: 3,
+              title: 'nav-three',
+              content: 'This is the nav-three.'
+            }
+          ],
+          currentNav: ''
+        }
+      },
+      template: `
+        <div class="nav">
+          <ul class="nav-title">
+            <li v-for="arr in arrs"
+              :key="arr.id"
+              @click="currentNav = arr"
+              :class="{active: currentNav === arr}"
+            >
+              {{ arr.title }}
+            </li>
+          </ul>
+          <div class="nav-content">
+            <div v-if="currentNav">
+              <h3>{{ this.currentNav.title }}</h3>
+              <p>{{ this.currentNav.content }}</p>
+            </div>
+            <h3 v-else>  Click on a blog title to the left to view it. </h3>
+        </div>
+      ` 
+    })
+    Vue.component('tab-two', {
+      template: `
+        <h3> This is the tab-two </h3>
+      `
+    })
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        tabs: ['tab-one', 'tab-two'],
+        currentTab: 'tab-one'
+      }
+    }) 
+  </script>
+</body>
+</html>
