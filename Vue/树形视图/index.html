@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>树形视图</title>
+  <style>
+    .item {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <p> Click to Expand folder and double click to turn it into a folder.</p>
+  <div id="app">
+    <item :model="treeDate"></item>
+  </div>
+  <script src="https://cdn.bootcss.com/vue/2.5.22/vue.js"></script>
+  <script type="text/x-template" id="item-template">
+    <li>
+      <div @click="toggle" @dblclick="getFolder" class="item">
+        {{ model.name }}
+        <span v-if="canFolder">[ {{ isOpen ? '-' : '+' }} ]</span>
+      </div>
+      <ul v-if="canFolder && isOpen">
+        <!-- 循环调用组件自身 -->
+        <item v-for="item in model.children" :model="item"></item>
+        <li @click="addChild">+</li>
+      </ul>
+    </li>
+  </script>
+  <script>
+    var data = {
+      name: 'My Tree',
+      children: [
+        { name: 'hello' },
+        { name: 'wat' },
+        {
+          name: 'child folder',
+          children: [
+            {
+              name: 'child folder',
+              children: [
+                { name: 'hello' },
+                { name: 'wat' }
+              ]
+            },
+            { name: 'hello' },
+            { name: 'wat' },
+            {
+              name: 'child folder',
+              children: [
+                { name: 'hello' },
+                { name: 'wat' }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+    Vue.component('item',  {
+      template: '#item-template',
+      props: {
+        model: Object
+      },
+      data() {
+        return {
+          isOpen: false
+        }
+      },
+      computed: {
+        canFolder() {
+          if(this.model.children) {
+            return true;
+          }
+        }
+      },
+      methods: {
+        toggle() {
+          if(this.canFolder) {
+            this.isOpen = !this.isOpen;
+          }
+        },
+        getFolder() {
+          if(!this.canFolder) {
+            Vue.set(this.model, 'children', []);
+            this.addChild();
+            this.isOpen = true;   
+          }
+        },
+        addChild() {
+          this.model.children.push({
+            name: 'new stuff'
+          })
+        }
+      }
+    })
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        treeDate: data
+      }
+    })
+  </script>
+</body>
+</html>
