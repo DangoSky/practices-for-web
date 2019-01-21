@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .box {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      /* transition: all .3s ease; */
+    }
+    table {
+      width: 450px;
+      border: 2px solid #cccccc;
+    }
+    th {
+      padding: 20px;
+    }
+    td {
+      border-top: 1px solid #cccccc;
+      padding: 20px;
+    }
+    .close {
+      float: right;
+    }
+    /* .model-enter, .model-leave-active {
+      opacity: 1;
+    }
+    .model-enter, .model-container, .model-leave-active .model-container {
+     transform: scale(1.8);
+    } */
+  </style>
+</head>
+<body>
+  <div id="app">
+    <button @click="changeModel">show model</button>
+    <model-component v-if="showModel" @close="changeModel">
+      <p slot="content">通过插name属性改变相应的插槽</p>
+    </model-component>
+  </div>
+  <script src="https://cdn.bootcss.com/vue/2.5.22/vue.js"></script>
+  <script type="text/x-template" id="model-template">
+    <transition name="model">     
+      <div class="box">
+        <table>
+          <thead>
+            <tr class="header">
+              <th>
+                <slot name="header">default header</slot>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <slot name="content">default body</slot>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <slot name="footer">default footer</slot>
+                <button class="close" @click="$emit('close')">CLOSE</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </transition>
+    </script>
+    <script>
+    var modelComponent = {
+      template: '#model-template'
+    }
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        showModel: false
+      },
+      components: {
+        'model-component': modelComponent 
+      },
+      methods: {
+        changeModel() {
+          this.showModel = !this.showModel;
+        }
+      }
+    })
+  </script>
+</body>
+</html>
