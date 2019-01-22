@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <p><router-link to="/user/foo/">/user/foo</router-link></p>
+    <p><router-link to="/user/foo/one">/user/one</router-link></p>
+    <p><router-link to="/user/foo/two">/user/two</router-link></p>
+    <router-view></router-view>
+  </div>
+  <script src='https://cdn.bootcss.com/vue/2.5.16/vue.js'></script>
+  <script src='https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js'></script>
+  <script>
+    const user = {
+      template: `
+        <div>
+          <h2>user {{ $route.params.id }}</h2>
+          <router-view></router-view>
+        </div>
+      `
+    }
+    const userHome = {
+      template: `
+        <p>home</p>
+      `
+    }
+    const userOne = {
+      template: `
+        <p>one</p>
+      `
+    }
+    const userTwo = {
+      template: `
+        <p>two</p>
+      `
+    }
+    const router = new VueRouter({
+      routes: [
+        // 如果有路由路径/user/foo/one或/user/foo/two可以完全配对，则直接输出到该路由
+        {
+          path: '/user/:id',
+          component: user,
+          children: [
+            {path: '', component: userHome},   // 默认出口
+            {path: 'one', component: userOne},
+            {path: 'two', component: userTwo}
+          ]  
+        }  
+      ]
+    })
+    const vm = new Vue({
+      router: router
+    }).$mount('#app')
+  </script>
+</body>
+</html>
