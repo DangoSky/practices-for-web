@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <router-link to="/one">one</router-link>
+    <router-link to="/two">two</router-link>
+    <router-link to="/three">three</router-link>
+    <router-view></router-view>
+    <router-view name="a"></router-view>
+    <router-view name="b"></router-view>
+  </div>
+  <script src='https://cdn.bootcss.com/vue/2.5.16/vue.js'></script>
+  <script src='https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js'></script>
+  <script>
+    const foo = {
+      template: `
+        <p>foo</p>
+      `
+    }
+    const bar = {
+      template: `
+        <p>bar</p>
+      `
+    }
+    const baz = {
+      template: `
+        <p>baz</p>
+      `
+    }
+    const router = new VueRouter({
+      routes: [
+        {
+          path: '/one',
+          components: {
+            default: foo,
+            a: baz,
+            b: bar
+          }  
+        },
+        {
+          path: '/two',
+          components: {
+            default: bar,
+            a: bar,
+            b: foo
+          }  
+        },
+        {
+          path: '/three',
+          components: {
+            default: baz,
+            a: foo,
+            b: bar
+          }  
+        }
+      ]
+    })
+    const vm = new Vue({
+      el: '#app',
+      router: router
+    })
+  </script>
+</body>
+</html>
