@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    table {
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <generals-component></generals-component>
+  </div>
+  <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+  <script type="text/x-template" id="generals-template">
+    <div>
+      <label for="name">姓名：</label><input type="text" id="name" v-model="newName">
+      <label for="force">武力值：</label><input type="text" id="force" v-model="newForce">
+      <button @click="add">添加</button>
+      <br>
+      <input type="text" placeholder="输入姓名或武力值查找" v-model="searchKey">
+      <table>
+        <thead>
+          <tr>
+            <th>姓名</th>
+            <th>武力</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in searchArr">
+            <td>{{ item.name }}</td>
+            <td>{{ item.force }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </script>
+  <script>
+    var generalsComponent = {
+      template: '#generals-template',
+      data() {
+        return {
+          arr: [
+            {
+              name: '张飞',
+              force: 98
+            },
+            {
+              name: '关羽',
+              force: 99
+            },
+            {
+              name: '赵云',
+              force: 97
+            },
+            {
+              name: '刘备',
+              force: 83
+            },
+            {
+              name: '曹操',
+              force: 88
+            },
+            {
+              name: '夏侯惇',
+              force: 94
+            },
+            {
+              name: '夏侯渊',
+              force: 93
+            },
+
+            {
+              name: '马超',
+              force: 98
+            },
+          ],
+          newName: '',
+          newForce: '',
+          searchKey: ''
+        }
+      },
+      computed: {
+        searchArr() {
+          if(this.searchKey) {
+            return this.arr.filter((val) => {
+              // 对于数值,先转化为string再使用includes
+              return val.name.includes(this.searchKey) || String(val.force).includes(this.searchKey);
+            })
+            // let that = this;
+            // return this.arr.filter(function(val, index) {
+            // 注意this指向
+            //   return val.force > (parseInt(that.searchKey));
+            // })
+          }
+          else {
+            return this.arr;
+          }
+        }
+      },
+      methods: {
+        add() {
+          this.arr.push({
+            name: this.newName,
+            force: this.newForce
+          });
+          this.newName = '';
+          this.newForce = '';
+        }
+      }
+    }
+    var vm = new Vue({
+      el: '#app',   
+      components: {
+        'generals-component': generalsComponent
+      },
+    })
+  </script>
+</body>
+</html>
