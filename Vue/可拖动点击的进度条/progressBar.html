@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./progressBar.css">
+  <title>进度条</title>
+</head>
+<body>
+  <div id="app">
+    <div class="progressBar" ref="progressBar">
+      <div class="bar" ref="bar"></div>
+      <div class="btn" 
+        ref="barBtn"
+        @touchstart.prevent="start" 
+        @touchmove.prevent="move"
+        @touchend.prevent="end"
+      ></div>
+    </div>
+  </div>
+   
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <script>
+  let app = new Vue({
+    el: '#app',
+    data: {
+      barWidth: 0
+    },
+    created() {
+      this.touch = {}
+    },
+    methods: { 
+      start(e) {
+        this.touch.initiated = true;
+        this.touch.start = e.touches[0].pageX;      // 开始点击的位置
+        this.touch.left = this.$refs.progressBar.clientWidth;   // 进度条容器的总长度
+      },
+      move(e) {
+        if (!this.touch.initiated)  return;             // 
+        const dis = e.touches[0].pageX - this.touch.start;      // 移动的距离
+        this.barWidth = this.$refs.bar.clientWidth + dis;       // 原本的进度条长度 + 拖动的距离 = 现在进度条的长度
+        console.log(this.barWidth);
+        this.$refs.bar.style.width = `${this.barWidth}px`;
+        this.$refs.barBtn.style.left = this.barWidth + 'px';
+        // const offsetWidth = Math.min(this.$refs.progressBar.clientWidth - progressBtnWidth, Math.max(0, this.touch.left + deltaX));
+      },
+      end() {
+        console.log("end");
+        this.touch.initiated = false;
+      },
+    }
+});
+
+    </script>
+</body>
+</html>
