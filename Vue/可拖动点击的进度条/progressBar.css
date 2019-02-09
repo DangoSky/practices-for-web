@@ -5,27 +5,8 @@ body {
   margin: 0;
   padding: 0;
 }
-/* .progressBar {
-  width: 500px;
-  height: 50px;
-  background-color: blue;
-  position: relative;
-}
-.bar {
-  position: absolute;
-  background-color: yellow;
-  height: 2px;
-}
-.btn {
-  width: 10px;
-  height: 10px;
-  border: 1px solid red;
-  border-radius: 50%;
-  position: absolute;
-  background-color: red;
-} */
 .progressBar {
-  width: 100%;
+  width: 80%;
   height: 2px;
   display: inline-block;
   background-color: rgb(222, 223, 227);
@@ -33,28 +14,25 @@ body {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  /* 避免拖动时选中文字 */
   user-select:none;
-  -moz-user-select:none;      /*火狐*/
-  -webkit-user-select:none;   /*webkit浏览器*/
-  -ms-user-select:none;       /*IE10*/
-  -khtml-user-select:none;    /*早期浏览器*/
-
+  -moz-user-select:none;      
+  -webkit-user-select:none;  
+  -ms-user-select:none;       
+  -khtml-user-select:none;   
 }
 .moveBar {
+  width: 0;
   height: 2px;
   float: left;
   background-color: #DB4139;
   position: relative;
 }
-/* 进度条圆圈 */
-.moveBar::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  bottom: -1.5px;
+.moveBtn {
   width: 3px;
   height: 3px;
+  position: absolute;
+  left: 0;
+  bottom: -1.5px;
   border: 1px solid #DB4139;
   background-color: #DB4139;
   box-shadow: 0 0 1px 5px white; 

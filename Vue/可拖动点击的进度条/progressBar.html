@@ -5,53 +5,55 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="./progressBar.css">
-  <title>进度条</title>
+  <title>ProgressBar</title>
 </head>
 <body>
   <div id="app">
-    <div class="progressBar" ref="progressBar">
-      <div class="bar" ref="bar"></div>
-      <div class="btn" 
-        ref="barBtn"
+    <div class="progressBar" ref="progressBar" @click="clickBar">
+      <div class="moveBar" ref="moveBar"></div>
+      <div class="moveBtn" ref="moveBtn"
         @touchstart.prevent="start" 
         @touchmove.prevent="move"
         @touchend.prevent="end"
       ></div>
     </div>
   </div>
-   
-    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
-    <script>
-  let app = new Vue({
-    el: '#app',
-    data: {
-      barWidth: 0
-    },
-    created() {
-      this.touch = {}
-    },
-    methods: { 
-      start(e) {
-        this.touch.initiated = true;
-        this.touch.start = e.touches[0].pageX;      // 开始点击的位置
-        this.touch.left = this.$refs.progressBar.clientWidth;   // 进度条容器的总长度
+  <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        barWidth: 0,
+        touch: {}
       },
-      move(e) {
-        if (!this.touch.initiated)  return;             // 
-        const dis = e.touches[0].pageX - this.touch.start;      // 移动的距离
-        this.barWidth = this.$refs.bar.clientWidth + dis;       // 原本的进度条长度 + 拖动的距离 = 现在进度条的长度
-        console.log(this.barWidth);
-        this.$refs.bar.style.width = `${this.barWidth}px`;
-        this.$refs.barBtn.style.left = this.barWidth + 'px';
-        // const offsetWidth = Math.min(this.$refs.progressBar.clientWidth - progressBtnWidth, Math.max(0, this.touch.left + deltaX));
-      },
-      end() {
-        console.log("end");
-        this.touch.initiated = false;
-      },
-    }
-});
-
-    </script>
+      methods: { 
+        start(e) {
+          this.touch.initiated = true;
+          this.touch.start = e.touches[0].pageX;                         // 开始点击的位置
+          this.touch.totalWidth = this.$refs.progressBar.clientWidth;   // 进度条容器的总长度
+        },
+        move(e) {
+          if (!this.touch.initiated)  return;                    
+          let dis = e.touches[0].pageX - this.touch.start;             // 移动的距离
+          this.barWidth = this.$refs.moveBar.clientWidth + dis;       // 原本的进度条长度 + 拖动的距离 = 现在进度条的长度
+          this.barWidth = Math.min(this.touch.totalWidth, Math.max(0, this.barWidth));
+          console.log(this.barWidth);
+          this.$refs.moveBtn.style.left = `${this.barWidth}px`;
+          this.$refs.moveBar.style.width = `${this.barWidth}px`;
+        },
+        end() {
+          console.log("end");
+          this.touch.initiated = false;
+        },
+        // 点击进度条
+        clickBar(e) {  
+          let rect = e.target.getBoundingClientRect();       // 返回目标元素的上下左右离视口左上角的距离以及自身的宽高所组成的对象。
+          this.barWidth = e.pageX - rect.left;
+          this.$refs.moveBtn.style.left = `${this.barWidth}px`;
+          this.$refs.moveBar.style.width = `${this.barWidth}px`;
+        }
+      }
+    });
+  </script>
 </body>
 </html>
