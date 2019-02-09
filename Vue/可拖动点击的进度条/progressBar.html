@@ -5,17 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" >
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="./progressBar.css">
-  <title>ProgressBar</title>
+  <title>进度条</title>
 </head>
 <body>
   <div id="app">
     <div class="progressBar" ref="progressBar" @click="clickBar">
       <div class="moveBar" ref="moveBar"></div>
-      <div class="moveBtn" ref="moveBtn"
+      <!-- 使用一个div包装按钮，增大width和height从而更容易拖动按钮 -->
+      <div class="moveBtn-wrapper" ref="moveBtn"
         @touchstart.prevent="start" 
         @touchmove.prevent="move"
-        @touchend.prevent="end"
-      ></div>
+        @touchend="end"
+      >
+        <div class="moveBtn"></div>
+      </div>
+      <p class="percent">{{ percent }}</p>
     </div>
   </div>
   <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
@@ -23,39 +27,37 @@
     var app = new Vue({
       el: '#app',
       data: {
+        percent: 0,
         touch: {}
       },
       methods: { 
         start(e) {
-          this.touch.initiated = true;
+          this.touch.initiated = true;                                    // 标记拖动开始
           this.touch.start = e.touches[0].pageX;                         // 开始点击的位置
           this.touch.moveBarWidth = this.$refs.moveBar.clientWidth;     // 已开始的进度条长度
-          console.log("start");
         },
         move(e) {
-          console.log("move");
           if (!this.touch.initiated)  return;        
-          let dis = e.touches[0].pageX - this.touch.start;             // 移动的距离
-          let barWidth = this.touch.moveBarWidth + dis;       // 原本的进度条长度 + 拖动的距离 = 现在进度条的长度
-
+          let dis = e.touches[0].pageX - this.touch.start;         // 拖动的距离
+          let barWidth = this.touch.moveBarWidth + dis;            // 已开始的进度条长度 + 拖动的距离 = 现在进度条的长度
           barWidth = Math.min(this.$refs.progressBar.clientWidth, Math.max(0, barWidth));
-          console.log(this.touch.moveBarWidth + " " + dis);
           this.changeMoveBar(barWidth);
         },
         end() {
-          console.log("end");
           this.touch.initiated = false;
         },
-        // 点击进度条
+        // 通过点击进度条进行修改
         clickBar(e) {  
-          let rect = e.target.getBoundingClientRect();       // 返回目标元素的上下左右离视口左上角的距离以及自身的宽高所组成的对象。
+          let rect = this.$refs.progressBar.getBoundingClientRect();     // 返回目标元素的上下左右离视口左上角的距离以及自身的宽高所组成的对象。
           let barWidth = e.pageX - rect.left;
           this.changeMoveBar(barWidth);
         },
+        // 修改进度条的长度
         changeMoveBar(barWidth) {
-          console.log("barWidth=" + barWidth);
           this.$refs.moveBar.style.width = `${barWidth}px`;
           this.$refs.moveBtn.style.left = `${barWidth}px`;
+          // 计算百分比
+          this.percent = `${ parseInt(barWidth / this.$refs.progressBar.clientWidth * 100 )}%`;
         }
       }
     });
