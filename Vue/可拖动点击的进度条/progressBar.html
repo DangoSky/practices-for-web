@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" >
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="./progressBar.css">
   <title>ProgressBar</title>
@@ -23,23 +23,24 @@
     var app = new Vue({
       el: '#app',
       data: {
-        barWidth: 0,
         touch: {}
       },
       methods: { 
         start(e) {
           this.touch.initiated = true;
           this.touch.start = e.touches[0].pageX;                         // 开始点击的位置
-          this.touch.totalWidth = this.$refs.progressBar.clientWidth;   // 进度条容器的总长度
+          this.touch.moveBarWidth = this.$refs.moveBar.clientWidth;     // 已开始的进度条长度
+          console.log("start");
         },
         move(e) {
-          if (!this.touch.initiated)  return;                    
+          console.log("move");
+          if (!this.touch.initiated)  return;        
           let dis = e.touches[0].pageX - this.touch.start;             // 移动的距离
-          this.barWidth = this.$refs.moveBar.clientWidth + dis;       // 原本的进度条长度 + 拖动的距离 = 现在进度条的长度
-          this.barWidth = Math.min(this.touch.totalWidth, Math.max(0, this.barWidth));
-          console.log(this.barWidth);
-          this.$refs.moveBtn.style.left = `${this.barWidth}px`;
-          this.$refs.moveBar.style.width = `${this.barWidth}px`;
+          let barWidth = this.touch.moveBarWidth + dis;       // 原本的进度条长度 + 拖动的距离 = 现在进度条的长度
+
+          barWidth = Math.min(this.$refs.progressBar.clientWidth, Math.max(0, barWidth));
+          console.log(this.touch.moveBarWidth + " " + dis);
+          this.changeMoveBar(barWidth);
         },
         end() {
           console.log("end");
@@ -48,9 +49,13 @@
         // 点击进度条
         clickBar(e) {  
           let rect = e.target.getBoundingClientRect();       // 返回目标元素的上下左右离视口左上角的距离以及自身的宽高所组成的对象。
-          this.barWidth = e.pageX - rect.left;
-          this.$refs.moveBtn.style.left = `${this.barWidth}px`;
-          this.$refs.moveBar.style.width = `${this.barWidth}px`;
+          let barWidth = e.pageX - rect.left;
+          this.changeMoveBar(barWidth);
+        },
+        changeMoveBar(barWidth) {
+          console.log("barWidth=" + barWidth);
+          this.$refs.moveBar.style.width = `${barWidth}px`;
+          this.$refs.moveBtn.style.left = `${barWidth}px`;
         }
       }
     });
