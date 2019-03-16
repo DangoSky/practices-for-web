@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "async": "^2.6.1"
+  }
+}
