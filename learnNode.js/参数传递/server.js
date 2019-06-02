@@ -24,5 +24,5 @@ http.createServer( function(request, response) {
       console.log("post请求完毕");
     })
   }
-}).listen(8000);
-console.log("server runing at localhost:8000");
+}).listen(2222);
+console.log("server runing at localhost:2222");
