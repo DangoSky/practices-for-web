@@ -6,29 +6,28 @@ function Promise(fn) {
   if (typeof fn !== 'function') {
     throw new Error('fn is not a function');
   }
-  let self = this;
   this.status = PEDDING;
   this.value = null;
   this.callbacks = [];  // resolve 或 reject 后的回调函数
 
-  function resolve(res) {
-    if (self.status === PEDDING) {
-      self.status = RESOLVED;
-      self.value = res;
-      // 异步执行 then 函数，对于 resolve 或 reject 后的代码会继续同步执行
-      setTimeout(function() {
-        self.callbacks.forEach(item => {
+  const resolve = (res) => {
+    if (this.status === PEDDING) {
+      this.status = RESOLVED;
+      this.value = res;
+      // 模仿异步执行 then 决断后的回调函数，对于 resolve 或 reject 后的代码会继续同步执行
+      setTimeout(() => {
+        this.callbacks.forEach(item => {
           item.onResolve(res);
         })
       })
     }
   }
-  function reject(err) {
-    if (self.status === PEDDING) {
-      self.status = REJECTED;
-      self.value = err;
-      setTimeout(function() {
-        self.callbacks.forEach(item => {
+  const reject = (err) => {
+    if (this.status === PEDDING) {
+      this.status = REJECTED;
+      this.value = err;
+      setTimeout(() => {
+        this.callbacks.forEach(item => {
           item.onReject(err);
         })
       })
@@ -42,14 +41,15 @@ function Promise(fn) {
   }
 }
 
+// 决断 then 返回的 promise。对捕获错误、判断决断后回调函数返回的 promise 是否合规、解析该 promise 的值，这三种情况进行封装
 Promise.prototype.parse = function(selfPromise, result, resolve, reject) {
   // then 中返回的 promise 不能和 resolve/reject 回调函数中返回的 promise 一样
   if (selfPromise === result) {
     throw new TypeError('chaining cycle detected');
   }
   try {
+    // 如果 resolve/reject 回调函数中返回的是 promise，则解析该 promise 的值返回给下一个 then
     if (result instanceof Promise) {
-      // 获取到返回的 promise 的结果值，返回给下一个 then
       result.then(resolve, reject);
     } else {
       resolve(result);
@@ -60,18 +60,20 @@ Promise.prototype.parse = function(selfPromise, result, resolve, reject) {
 }
 
 Promise.prototype.then = function(onResolve, onReject) {
-  // onResolve = typeof onResolve === 'function' ? onResolve : function() { return this.value };
+  // 如果没有传 onResolve 或 onReject 函数的话，则默认返回当前 promise 的值，实现值穿透
   if (typeof onResolve !== 'function') {
     onResolve = () => {
       return this.value;
     }
-    // onResolve = () => this.value;
   }
-  onReject = typeof onReject === 'function' ? onReject : function() { return this.value };
-  // TODO: resPromise status 
+  if (typeof onReject !== 'function') {
+    onReject = () => {
+      return this.value;
+    }
+  }
   const selfPromise =  new Promise((resolve, reject) => {
-    // 使用箭头函数绑定this为外层的this指向
-    // 当前promise还在pedding，先放入callbacks中等状态变化后再调用
+    // 使用箭头函数绑定 this 为外层的 this 指向
+    // 当前 promise 还在 pedding，先放入 callbacks 中等状态变化后再调用
     if (this.status === PEDDING) {
       this.callbacks.push({
         onResolve: val => {
@@ -95,8 +97,10 @@ Promise.prototype.then = function(onResolve, onReject) {
   return selfPromise;
 }
 
+// 将 value 转化成 promise，默认为 resolve 状态
 Promise.resolve = function(value) {
   return new Promise(function(resolve, reject) {
+    // 如果 value 本身已经是 promise 了，则解析它的值来决断，否则直接 resolve
     if (value instanceof Promise) {
       value.then(resolve, reject);
     } else {
@@ -105,12 +109,14 @@ Promise.resolve = function(value) {
   })
 }
 
+// 将 value 转化成 promise，默认为 reject 状态
 Promise.reject = function(reason) {
   return new Promise(function(resolve, reject) {
     reject(reason);
   })
 }
 
+// 返回一个 promise，所有 promise 都 resolve 后才 resolve，有一个 reject 则该 promise 会被 reject
 Promise.all = function(promises) {
   const resolvePromises = [];
   return new Promise(function(resolve, reject) {
@@ -128,6 +134,7 @@ Promise.all = function(promises) {
   })
 }
 
+// 返回一个 promise，其状态跟第一个决断的 promise 相同
 Promise.race = function(promises) {
   return new Promise(function(resolve, reject) {
     // 只要一个 promise 决断了就可以了，因为状态一经改变就不会再变，所以之后即使还有其他 promise 决断了也不会有影响
@@ -143,28 +150,29 @@ Promise.race = function(promises) {
 
 
 /* test */
-// let a = new Promise(function(resolve, reject) {
-//   // setTimeout(function() {
-//     resolve(1);
-//     console.log('end');
-//   // }, 1000)
-// }).then(function(res) {
-//   console.log(res);
-//   console.log(dangosky);
-//   return 'then1 end';
-// }).then(function(res) {
-//   console.log('then2: ', res);
-// }, function(err) {
-//   console.log(err);
-// }).then(function(res) {
-//   console.log('then3: ', res);
-// });
-// console.log('outer');
+let a = new Promise(function(resolve, reject) {
+  // setTimeout(function() {
+    resolve(0);
+    console.log('end');
+  // }, 1000)
+}).then(function(res) {
+  console.log('then1: ', res);
+  // console.log(dangosky);
+  return 1;
+}).then(function(res) {
+  console.log('then2 resolve: ', res);
+  return 2;
+}, function(err) {
+  console.log('then2 reject: ', err);
+}).then(function(res) {
+  console.log('then3: ', res);
+});
+console.log('outer');
 
 
-// then 的回调返回一个 promise 测试
+// test: then 的回调返回一个 promise
 // let a = new Promise(function(resolve, reject) {
-//   setTimeout(function() {
+//   setTimeout(function() {z
 //     // resolve(0);
 //     reject(0);
 //     console.log('end');
@@ -186,26 +194,26 @@ Promise.race = function(promises) {
 // });
 
 
-// all 和 race 方法测试
-let p1 = new Promise(function(resolve, reject) {
-  setTimeout(() => {
-    resolve('resolve1');
+// test: all 和 race 方法
+// let p1 = new Promise(function(resolve, reject) {
+//   setTimeout(() => {
+//     resolve('resolve1');
     
-  }, 3000);
-})
-let p2 = new Promise(function(resolve, reject) {
-  setTimeout(() => {
+//   }, 3000);
+// })
+// let p2 = new Promise(function(resolve, reject) {
+//   setTimeout(() => {
     
-    resolve('resolve2');
-  }, 3000);
-})
-let p3 = new Promise(function(resolve, reject) {
-  setTimeout(() => {
-    reject('resolve3');
-  }, 3000);
-})
-let a = Promise.race([p1, p2, p3]).then(function(value) {
-  console.log('resolve', value);
-}, function(reason) {
-  console.log('reject', reason);
-})
+//     resolve('resolve2');
+//   }, 3000);
+// })
+// let p3 = new Promise(function(resolve, reject) {
+//   setTimeout(() => {
+//     reject('resolve3');
+//   }, 3000);
+// })
+// let a = Promise.race([p1, p2, p3]).then(function(value) {
+//   console.log('resolve', value);
+// }, function(reason) {
+//   console.log('reject', reason);
+// })
