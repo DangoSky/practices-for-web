@@ -90,10 +90,33 @@
 /*!*********************!*\
   !*** ./src/main.js ***!
   \*********************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_index_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style/index.css */ \"./src/style/index.css\");\n/* harmony import */ var _style_index_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_index_css__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _style_index_less__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style/index.less */ \"./src/style/index.less\");\n/* harmony import */ var _style_index_less__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_style_index_less__WEBPACK_IMPORTED_MODULE_1__);\n\n\n\nconsole.log('webpack 基本测试之打包');\nconsole.log('内容修改后，文件名的 hash 是否变化');\nconsole.log('清除旧的打包文件');\n\n\n//# sourceURL=webpack:///./src/main.js?");
+
+/***/ }),
+
+/***/ "./src/style/index.css":
+/*!*****************************!*\
+  !*** ./src/style/index.css ***!
+  \*****************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("console.log('webpack 基本测试之打包');\nconsole.log('内容修改后，文件名的 hash 是否变化');\n\n\n//# sourceURL=webpack:///./src/main.js?");
+eval("// removed by extract-text-webpack-plugin\n\n//# sourceURL=webpack:///./src/style/index.css?");
+
+/***/ }),
+
+/***/ "./src/style/index.less":
+/*!******************************!*\
+  !*** ./src/style/index.less ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("// removed by extract-text-webpack-plugin\n\n//# sourceURL=webpack:///./src/style/index.less?");
 
 /***/ })
 
