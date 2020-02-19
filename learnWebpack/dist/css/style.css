@@ -4,4 +4,8 @@ body {
 }
 body {
   border: 1px solid red;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
