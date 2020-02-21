@@ -58,24 +58,36 @@ module.exports = {
         test: /\.(jpeg|jpg|png|gif)$/,
         loader: 'url-loader',
         options: {
-          limit: 200000,
+          limit: 100000,
           name: '[name].[hash:8].[ext]',
           publicPath: '../images/',
-          outputPath: 'images/'
+          outputPath: 'images/',
+          esModule: false // 启用CommonJS模块语法
         }
       },
-
   
 
+      {
+        test: /\.html$/,
+        use: [{
+          loader: 'html-loader',
+          options: {
+            // minimize: true // 是否压缩打包后的 HTML 文件，true 的话则 HTML 文件会丢失空格和换行
+          }
+        }],
+      }
+
       // {
-      //   test: /\.html$/,
-      //   use: [{
-      //     loader: 'html-loader',
-      //     options: {
-      //       // minimize: true // 是否压缩打包后的 HTML 文件，true 的话则 HTML 文件会丢失空格和换行
-      //     }
-      //   }],
-      // }
+    //     test: /\.html$/,
+    //     use: {
+    //         loader: 'html-loader',
+    //         options: {
+    //             // attrs: ['img:src', 'img:data-src', 'audio:src'],
+    //             esModule: false,
+    //             // minimize: true
+    //         }
+    //     }
+    //  }
     ]
   }
 }
