@@ -6,6 +6,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin")
 module.exports = {
   mode:'development', // 开发模式
   entry: path.resolve(__dirname,'../src/main.js'),    // 入口文件
+  // entry: ["@babel/polyfill", path.resolve(__dirname,'../src/main.js')],
   output: { // 出口
     filename: '[name].[hash:8].js',      // 打包后的文件名称
     path: path.resolve(__dirname,'../dist'),  // 打包后的目录
@@ -45,15 +46,7 @@ module.exports = {
           ]
         })      
       }, 
-      // {
-      //   test: /\.(jpeg|jpg|png|gif)$/,
-      //   loader: 'file-loader',
-      //   options: {
-      //     name: '[name].[hash:8].[ext]',
-      //     publicPath: '../images/',
-      //     outputPath: 'images/'
-      //   }
-      // },
+
       {
         test: /\.(jpeg|jpg|png|gif)$/,
         loader: 'url-loader',
@@ -65,29 +58,18 @@ module.exports = {
           esModule: false // 启用CommonJS模块语法
         }
       },
-  
 
       {
-        test: /\.html$/,
-        use: [{
-          loader: 'html-loader',
+        test: /\.js$/,
+        use: {
+          loader: 'babel-loader',
           options: {
-            // minimize: true // 是否压缩打包后的 HTML 文件，true 的话则 HTML 文件会丢失空格和换行
+            presets: ['@babel/preset-env']
           }
-        }],
-      }
+        },
+        exclude: /node_modules/
+      },
 
-      // {
-    //     test: /\.html$/,
-    //     use: {
-    //         loader: 'html-loader',
-    //         options: {
-    //             // attrs: ['img:src', 'img:data-src', 'audio:src'],
-    //             esModule: false,
-    //             // minimize: true
-    //         }
-    //     }
-    //  }
     ]
   }
 }
