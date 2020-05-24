@@ -16,7 +16,7 @@ module.exports = {
       template: path.resolve(__dirname, '../public/index.html')
     }),
     new CleanWebpackPlugin(),
-    new ExtractTextPlugin("css/style.css"),
+    new ExtractTextPlugin("css/style.[hash:8].css"),
   ],
   module: {
     rules: [
