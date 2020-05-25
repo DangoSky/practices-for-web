@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const root = __dirname;
-const filterChar = [' ', '\t', '\n', '\r'];
-
+const filterChars = [' ', '\t', '\n', '\r'];
+const operatorChars = ['+', '-', '*', '/', '=', '<', '>', '=', ':'];
 const demoPath = path.resolve(root, './test');
 const demoFiles = fs.readdirSync(demoPath).map(file => {
   return path.join(demoPath, file)
@@ -42,6 +42,11 @@ const tokenObj = {
   '==': { type: enumType.OPERATOR, typeVal: 42 },
   '(': { type: enumType.DELIMITER, typeVal: 48 },
   ')': { type: enumType.DELIMITER, typeVal: 49 },
+  '{': { type: enumType.DELIMITER, typeVal: 50 },
+  '}': { type: enumType.DELIMITER, typeVal: 51 },
+  'main': { type: enumType.KEYWORK, typeVal: 52 },
+  'int': { type: enumType.KEYWORK, typeVal: 53 },
+  'float': { type: enumType.KEYWORK, typeVal: 54 },
   '_variable': { type: enumType.VARIABLE, typeVal: 56 },
   '_constant': { type: enumType.CONSTANT,  typeVal: 57 }
 }
@@ -79,13 +84,13 @@ function analyze(contentArr) {
       const char = line[i];
       let curToken = '';
       // 无效的字符则跳过如换行符等
-      if (filterChar.includes(char)) {
+      if (filterChars.includes(char)) {
         i++;
         continue;
       }
       // 是关键字或变量
       if (isLetter(char)) {
-        while(isLetter(line[i])) {
+        while(isLetter(line[i]) || isNumber(line[i])) {
           curToken += line[i];
           i++;
         }
@@ -104,24 +109,21 @@ function analyze(contentArr) {
         writeAns(ansTokens, curToken, enumType.CONSTANT);
         continue;
       }
-      // 是运算符
       const nextChar = line[i + 1];
       const twoOperator = `${char}${nextChar}`;
-      // 双字符运算符如 >=
-      if (
-        (char === '<' ||
-        char === '>' ||
-        char === '=' ||
-        char === ':') &&
-        tokenObj.hasOwnProperty(twoOperator)
-      ) {
-        writeAns(ansTokens, twoOperator, enumType.OPERATOR);
-        i += 2;
-        continue;
-      }
-      // 单字符运算符
-      if (tokenObj.hasOwnProperty(char)) {
+      if (operatorChars.includes(char)) {
+        // 双字符运算符如 >= 和 ++ 等
+        if (tokenObj.hasOwnProperty(twoOperator)) {
+          writeAns(ansTokens, twoOperator, enumType.OPERATOR);
+          i += 2;
+          continue;
+        }
+        // 单字符运算符
         writeAns(ansTokens, char, enumType.OPERATOR);
+        i++;
+      } else if (tokenObj.hasOwnProperty(char)) {
+        // 界符
+        writeAns(ansTokens, char, enumType.DELIMITER);
         i++;
       } else {
         i++;
@@ -150,6 +152,5 @@ function printAns(ans) {
 
 
 /* 
-1. 无法解析包含数字字符的变量，如 a1
-2. 还是会解析不符合规范的数字，如 1..1
+  1. 还是会解析不符合规范的数字，如 1..1
 */
