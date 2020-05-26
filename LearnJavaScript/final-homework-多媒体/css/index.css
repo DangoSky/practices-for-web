@@ -81,9 +81,27 @@
   position: relative;
 }
 
+.animation-title {
+  color: #000;
+  writing-mode: vertical-lr;
+  position: absolute;
+  top: 50%;
+  left: 30px;
+  transform: translateY(-50%);
+}
+
 .resume-container {
   width: 100vw;
   height: 100vh;
   position: relative;
   background-color: #1F1F1F;
+}
+
+.resume-title {
+  color: #fff;
+  writing-mode: vertical-lr;
+  position: absolute;
+  top: 50%;
+  left: 30px;
+  transform: translateY(-50%);
 }
