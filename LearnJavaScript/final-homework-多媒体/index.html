@@ -8,12 +8,16 @@
   <title>我的大学我的故事</title>
   <link rel="stylesheet" href="./css/index.css">
   <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./css/treeDance.css">
+  <link rel="stylesheet" href="./css/resume.css">
   <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/animejs/3.2.0/anime.min.js"></script>
 </head>
 
 <body>
   <div id="app">
+    <!-- 轮播图 -->
     <div id="carouselExampleIndicators" class="carousel slide photos-container" data-ride="carousel">
       <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -41,33 +45,131 @@
       </a>
     </div>
 
+    <!-- 动画展示-会跳舞的树 -->
+    <div id="animation" class="animation-container">
+      <div class="trunk"><div><div><div><div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div></div><div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div></div></div><div><div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div></div><div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div></div></div></div><div><div><div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div></div><div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div></div></div><div><div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div></div><div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div></div></div></div></div><div><div><div><div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div></div><div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div></div></div><div><div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div></div><div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div></div></div></div><div><div><div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div></div><div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div></div></div><div><div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div></div><div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div><div><div><div><div></div><div></div></div><div><div></div><div></div></div></div><div><div><div></div><div></div></div><div><div></div><div></div></div></div></div></div></div></div></div></div>
+    </div>
+
+    <!-- 简历展示 -->
+    <div class="resume-container">
+      <div class="container">
+        <div class="team-members row">
+          <div class="single-member effect-1">
+            <div class="member-image">
+              <img src="./images/dangosky.jpeg" alt="Member">
+            </div>
+            <div class="member-info">
+              <h3>林欣煜</h3>
+              <h5>广州大学</h5>
+              <p>软件工程</p>
+              <p>2021.07 毕业</p>
+              <p>dangosky275443@gmail.com</p>
+              <p>求职意向：前端开发工程师</p>
+            </div>
+          </div>
+          <div class="single-member effect-2">
+            <div class="member-image">
+              <img src="./images/dangosky.jpeg" alt="Member">
+            </div>
+            <div class="member-info">
+              <h3>专业技能</h3>
+              <p>熟悉使用 HTML、CSS 和 JavaScript。</p>
+              <p>了解 React 和 TypeScript，可以熟练使用于项目开发中。</p>
+              <p>能够熟练使用 Git 进行团队开发合作。 对数据结构、算法和计算机网络有基本的了解。</p>
+            </div>
+          </div>
+          <div class="single-member effect-3">
+            <div class="member-image">
+              <img src="./images/dangosky.jpeg" alt="Member">              
+            </div>
+            <div class="member-info">
+              <h3>实习经历</h3>
+              <h5>字节跳动</h5>
+              <p>2019.07-2019.08</p>
+              <p>2020.01-2020.04</p>
+              <p>飞书团队</p>
+            </div>
+          </div>
+          <div class="single-member effect-4">
+            <div class="member-info">
+              <h3>实习项目</h3>
+            </div>
+            <div class="member-image">
+              <img src="./images/dangosky.jpeg" alt="Member">
+            </div>
+            <div class="more-info">
+              <p>技术栈：React + TypeScript + Less</p>
+              <p>一. 飞书帮助中心</p>
+              <p>主要工作：UI 迭代、代码重构、打包优化。</p>
+              <p>二. 飞书后台管理系统</p>
+              <p>主要工作：页面开发、公共组件库开发、校验脚本编写。</p>
+            </div>
+          </div>
+          <div class="single-member effect-5">
+            <div class="member-image">
+              <img src="./images/dangosky.jpeg" alt="Member">
+            </div>
+            <div class="member-info">
+              <h3>个人项目</h3>
+              <p>Web 版的中国象棋</p>
+              <p>项目描述：Web 版的中国象棋，只能在 PC 端进行游戏。实现基本的双人在线下棋操作和聊天室功能，支持游客进入对战中的棋局观战。</p>
+            </div>
+          </div>
+          <div class="single-member effect-7">
+            <div class="member-info">
+              <h3>个人项目</h3>
+            </div>
+            <div class="member-image">
+              <img src="./images/dangosky.jpeg" alt="Member">                  
+            </div>
+            <div class="more-info">
+              <p>Vue 全家桶仿网易云音乐</p>
+              <p>项目描述：独立使用 Vue 全家桶开发 Web 版的网易云音乐(目前只适配了移动端)。实现功能有基本的歌曲播放暂停、切换、改变播放顺序、歌词滚动、获取推荐歌单和推荐mv、音乐搜索、增删改查歌单等。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="window-html">
       <audio src="./statics/life.mp3" id="music"></audio>
       <img src="./images/music_icon.svg" class="music-icon" id="musicBtn">
+      <div class="music-tooltip-box" id="musicTooltip">
+        <span class="music-tooltip">听一首歌叭~</span>
+      </div>
     </div>
-
   </div>
 
   <script src="./js/index.js"></script>
   <script>
     let musicIsPlaying = false;
     window.addEventListener('DOMContentLoaded', function () {
-
+      showHideTooltip();
+      controlMusic();
     })
 
-    const musicBtn = document.getElementById('musicBtn');
-    musicBtn.addEventListener('click', function () {
-      const audio = document.getElementById('music');
-      if (musicIsPlaying) {
-        audio.pause();
-        musicBtn.classList.remove('music-icon-rotate')
-      } else {
-        audio.play();
-        musicBtn.classList.add('music-icon-rotate')
-      }
-      musicIsPlaying = !musicIsPlaying;
-    })
+    function controlMusic() {
+      const musicBtn = document.getElementById('musicBtn');
+      musicBtn.addEventListener('click', function () {
+        const audio = document.getElementById('music');
+        if (musicIsPlaying) {
+          audio.pause();
+          musicBtn.classList.remove('music-icon-rotate')
+        } else {
+          audio.play();
+          musicBtn.classList.add('music-icon-rotate')
+        }
+        musicIsPlaying = !musicIsPlaying;
+      })
+    }
+
+    function showHideTooltip() {
+      $('#musicTooltip').fadeIn(1000);
+      setTimeout(function() {
+        $('#musicTooltip').fadeOut(1000);
+      }, 3000)
+    }
+
   </script>
 </body>
 
@@ -76,8 +178,8 @@
 
   二、实验作品：我的大学我的故事
 要求：
-１、网页表现形式，具有标准网页操作与显示功能；
-　　  ２、网页显示时具有背景音乐；
+１、网页表现形式，具有标准网页操作与显示功能； ok
+　　  ２、网页显示时具有背景音乐；ok
       ３、就职某职位的个人简历，以连续滚动式播送；
 　　　 ４、三张以上ps摄影平面作品，要出示原图（至少三种以下PS技术）；  ok
 　　　５、能播放三分钟以上表现本人大学生活视频作品，要配有音乐表现；
