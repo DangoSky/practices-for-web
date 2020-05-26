@@ -1,0 +1,34 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.photos-container img {
+  width: 100vw;
+  height: 100vh !important;
+} 
+
+.music-icon {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  z-index: 99;
+  cursor: pointer;
+  animation: rotate-music-icon 6s linear infinite normal;
+  animation-play-state: paused;
+  -webkit-animation-play-state: paused;
+}
+
+.music-icon-rotate {
+  animation-play-state: running;
+  -webkit-animation-play-state: running;
+}
+
+@keyframes rotate-music-icon {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
